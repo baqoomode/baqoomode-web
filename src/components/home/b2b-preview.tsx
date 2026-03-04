@@ -1,0 +1,271 @@
+"use client";
+
+import { useRef, useState, useEffect } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import Link from "next/link";
+import Image from "next/image";
+import { ArrowRight, Zap, Layers, Circle, Type, Power, Layout } from "lucide-react";
+
+// Product Data for the Morphing Sequence
+const B2B_PRODUCTS = [
+    {
+        id: "lightboard",
+        title: "초슬림 발광보드",
+        subtitle: "메인 인프라",
+        description: "공간의 근본적인 밝기를 지배하는 완벽한 평면의 빛. DSE 초박형 설계.",
+        icon: <Zap className="w-6 h-6 text-white" />,
+        imageSrc: "/b2b/lightboard.png",
+    },
+    {
+        id: "polygon",
+        title: "입체 다각형 보드",
+        subtitle: "기하학적 포인트",
+        description: "삼각형, 육각형 등 평범함을 거부하는 3D 입체 V형 구조 설계.",
+        icon: <Layers className="w-6 h-6 text-white" />,
+        imageSrc: "/b2b/polygon.png",
+    },
+    {
+        id: "round",
+        title: "유연한 라운드 보드",
+        subtitle: "빛의 파동",
+        description: "공간의 거대한 기둥과 굴곡을 완벽히 감싸는 자유로운 곡면의 형태.",
+        icon: <Circle className="w-6 h-6 text-white" />,
+        imageSrc: "/b2b/round.png",
+    },
+    {
+        id: "strip",
+        title: "초박형 라인 띠보드",
+        subtitle: "공간을 긋는 선",
+        description: "천장과 벽의 틈새, 버려진 모서리를 베일 듯 날카롭게 채우는 빛.",
+        icon: <Power className="w-6 h-6 text-white" />,
+        imageSrc: "/b2b/strip.png",
+    },
+    {
+        id: "hanji",
+        title: "전통 한지 보드",
+        subtitle: "한국의 헤리티지",
+        description: "첨단 면발광 위에 덮힌 가장 따뜻한 전통 소재의 결. 은은히 번지는 독보성.",
+        icon: <Layout className="w-6 h-6 text-white" />,
+        imageSrc: "/b2b/hanji.png",
+    },
+    {
+        id: "image",
+        title: "이미지 조명",
+        subtitle: "메시지의 발현",
+        description: "사진, 브랜드 아이덴티티 자체를 선명한 빛으로 캔버스에 투영.",
+        icon: <Type className="w-6 h-6 text-white" />,
+        imageSrc: "/b2b/image.png",
+    }
+];
+
+export function B2BPreview() {
+    const containerRef = useRef<HTMLDivElement>(null);
+    const [isMobile, setIsMobile] = useState(false);
+
+    // Check if mobile on mount and window resize
+    useEffect(() => {
+        const checkMobile = () => {
+            setIsMobile(window.innerWidth < 768);
+        };
+        checkMobile(); // Initial check
+        window.addEventListener("resize", checkMobile);
+        return () => window.removeEventListener("resize", checkMobile);
+    }, []);
+
+    // Track scroll progress across a very tall container (e.g., 600vh for 6 items)
+    const { scrollYProgress } = useScroll({
+        target: containerRef,
+        offset: ["start start", "end end"]
+    });
+
+    // ---------------------------------------------------------
+    // 1. MORPHING CANVAS DIMENSION SETTINGS
+    // We define how the central shape changes at each of the 6 steps
+    // ---------------------------------------------------------
+    // Map scroll progress 0 -> 1 into 6 distinct phases
+    const phases = [0, 0.2, 0.4, 0.6, 0.8, 1];
+
+    // Responsive Arrays based on `isMobile` state
+    const widthsDesktop = ["80vw", "40vw", "50vw", "10vw", "60vw", "90vw"];
+    const widthsMobile = ["95vw", "90vw", "95vw", "20vw", "95vw", "100vw"]; // Much wider on mobile
+
+    const heightsDesktop = ["60vh", "40vw", "50vw", "80vh", "60vh", "70vh"];
+    // 모바일에서는 한지 보드(80vh)처럼 전체적으로 크고 풍성하게! (초슬림, 다각형, 라운드 모두 높이 상향)
+    const heightsMobile = ["70vh", "75vh", "80vh", "80vh", "80vh", "100vh"];
+
+    const radiusDesktop = ["0px", "40px", "50%", "100px", "16px", "0px"];
+    const radiusMobile = ["0px", "24px", "50%", "100px", "12px", "0px"];
+
+    // Morphing Widths (vw/px)
+    const morphWidth = useTransform(
+        scrollYProgress,
+        phases,
+        isMobile ? widthsMobile : widthsDesktop
+    );
+
+    // Morphing Heights (vh/px)
+    const morphHeight = useTransform(
+        scrollYProgress,
+        phases,
+        isMobile ? heightsMobile : heightsDesktop
+    );
+
+    // Morphing Border Radius
+    const morphRadius = useTransform(
+        scrollYProgress,
+        phases,
+        isMobile ? radiusMobile : radiusDesktop
+    );
+
+    // Morphing Texture Rotation (Just to give it a slight dynamic 3D feel during scroll)
+    const morphRotate = useTransform(
+        scrollYProgress,
+        [0, 1],
+        [0, 15] // Slowly rotates 15 degrees over the entire scroll
+    );
+
+
+    // ---------------------------------------------------------
+    // 2. TEXT CROSSFADE CALCULATIONS 
+    // Show one product text corresponding to the current phase
+    // ---------------------------------------------------------
+    const stepSize = 1 / (B2B_PRODUCTS.length - 1); // e.g. 0.2 for 6 items
+
+    const createTextOpacity = (index: number) => {
+        const center = index * stepSize;
+        const start = Math.max(0, center - stepSize / 2);
+
+        // 마지막 항목(이미지 조명)은 스크롤 끝에서도 페이드아웃되지 않고 유지
+        if (index === B2B_PRODUCTS.length - 1) {
+            return useTransform(scrollYProgress, [start, center], [0, 1]);
+        }
+
+        const end = Math.min(1, center + stepSize / 2);
+        return useTransform(
+            scrollYProgress,
+            [start, center, end],
+            [0, 1, 0]
+        );
+    };
+
+    const createTextY = (index: number) => {
+        const center = index * stepSize;
+        const start = Math.max(0, center - stepSize / 2);
+
+        // 마지막 항목은 위로 날아가지 않고 정중앙에 고정
+        if (index === B2B_PRODUCTS.length - 1) {
+            return useTransform(scrollYProgress, [start, center], [40, 0]);
+        }
+
+        const end = Math.min(1, center + stepSize / 2);
+        return useTransform(
+            scrollYProgress,
+            [start, center, end],
+            [40, 0, -40] // Comes up from bottom, exits top
+        );
+    };
+
+
+    return (
+        <section ref={containerRef} className="relative h-[600vh] bg-black">
+
+            {/* STICKY RENDER LAYER */}
+            <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center bg-[#050505]">
+
+                {/* Intro Title Overlay (Fades out quickly) */}
+                <motion.div
+                    style={{ opacity: useTransform(scrollYProgress, [0, 0.05], [1, 0]) }}
+                    className="absolute top-12 left-0 w-full text-center z-40 pointer-events-none"
+                >
+                    <span className="text-[#00dfb6] font-medium tracking-widest text-sm uppercase">
+                        For Business & Experts
+                    </span>
+                    <h2 className="text-3xl font-bold mt-2 text-white">압도적인 공간의 재창조</h2>
+                </motion.div>
+
+                {/* --- THE MORPHING CANVAS --- */}
+                {/* This single div changes its shape and border-radius smoothly based on scroll */}
+                <motion.div
+                    style={{
+                        width: morphWidth,
+                        height: morphHeight,
+                        borderRadius: morphRadius,
+                        rotate: morphRotate,
+                    }}
+                    className="relative overflow-hidden shadow-2xl shadow-[#00dfb6]/10 flex items-center justify-center border border-white/10 bg-zinc-900"
+                >
+
+                    {/* Texture Crossfades INSIDE the canvas */}
+                    {B2B_PRODUCTS.map((product, index) => {
+                        // eslint-disable-next-line react-hooks/rules-of-hooks
+                        const texOpacity = createTextOpacity(index); // Reusing text timing for texture crossfade
+
+                        return (
+                            <motion.div
+                                key={`tex-${product.id}`}
+                                style={{ opacity: texOpacity }}
+                                className="absolute inset-0 w-full h-full flex flex-col items-center justify-center"
+                            >
+                                <Image
+                                    src={product.imageSrc}
+                                    alt={product.title}
+                                    fill
+                                    className="object-cover"
+                                    sizes="(max-width: 768px) 100vw, 80vw"
+                                    priority={index === 0}
+                                />
+                                <div className="absolute inset-0 bg-black/40 mix-blend-multiply" /> {/* Darkens image slightly for text readability */}
+                            </motion.div>
+                        );
+                    })}
+                </motion.div>
+
+
+                {/* --- TEXT & UI OVERLAYS --- */}
+                {B2B_PRODUCTS.map((product, index) => {
+                    // eslint-disable-next-line react-hooks/rules-of-hooks
+                    const textOpacity = createTextOpacity(index);
+                    // eslint-disable-next-line react-hooks/rules-of-hooks
+                    const textY = createTextY(index);
+
+                    return (
+                        <motion.div
+                            key={`desc-${product.id}`}
+                            style={{ opacity: textOpacity, y: textY }}
+                            className="absolute z-30 flex flex-col items-center justify-center text-center p-8 w-full max-w-2xl pointer-events-none drop-shadow-2xl"
+                        >
+                            <div className="mb-6 w-16 h-16 flex items-center justify-center rounded-2xl bg-black/50 backdrop-blur-md border border-white/20">
+                                {product.icon}
+                            </div>
+                            <span className="text-[#00dfb6] font-semibold tracking-widest text-sm mb-3">
+                                {product.subtitle}
+                            </span>
+                            <h3 className="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight tracking-tight mb-6 drop-shadow-md">
+                                {product.title}
+                            </h3>
+                            <p className="text-lg md:text-xl text-zinc-200 font-light leading-relaxed drop-shadow-md">
+                                {product.description}
+                            </p>
+                        </motion.div>
+                    );
+                })}
+
+
+                {/* Final CTA Button (Fades in at the very end) */}
+                <motion.div
+                    style={{
+                        opacity: useTransform(scrollYProgress, [0.95, 1], [0, 1])
+                    }}
+                    className="absolute bottom-12 flex justify-center w-full pointer-events-auto z-50"
+                >
+                    <Link href="/contact" className="inline-flex items-center justify-center px-10 py-4 rounded-full bg-[#00dfb6] text-black hover:bg-white transition-colors duration-300 font-bold text-lg tracking-wide shadow-xl shadow-[#00dfb6]/30">
+                        B2B 전문가 도입 상담
+                        <ArrowRight className="ml-3 w-5 h-5" />
+                    </Link>
+                </motion.div>
+
+            </div>
+        </section>
+    );
+}
+
