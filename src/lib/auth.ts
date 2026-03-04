@@ -8,16 +8,16 @@ export const auth = betterAuth({
     }),
     socialProviders: {
         kakao: {
-            clientId: process.env.KAKAO_CLIENT_ID!,
-            clientSecret: process.env.KAKAO_CLIENT_SECRET!,
+            clientId: process.env.KAKAO_CLIENT_ID || "dummy",
+            clientSecret: process.env.KAKAO_CLIENT_SECRET || "dummy",
         },
         naver: {
-            clientId: process.env.NAVER_CLIENT_ID!,
-            clientSecret: process.env.NAVER_CLIENT_SECRET!,
+            clientId: process.env.NAVER_CLIENT_ID || "dummy",
+            clientSecret: process.env.NAVER_CLIENT_SECRET || "dummy",
         },
         google: {
-            clientId: process.env.GOOGLE_CLIENT_ID!,
-            clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+            clientId: process.env.GOOGLE_CLIENT_ID || "dummy",
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET || "dummy",
         },
     },
     // We strictly disable email/password auth as requested by the user
