@@ -14,6 +14,7 @@ const MODES = [
         slogan: "\"영원히 빛나는 나의 가족\"",
         description: "반려동물의 가장 예쁜 모습을 빛나는 프레임에 담아 영원히 간직하세요.",
         image: "/hero/hero_pet.png",
+        mobileImage: "/hero/hero_pet_mobile.png",
         video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4", // 안전한 구글 클라우드 샘플 1
         accent: "text-amber-500",
     },
@@ -238,7 +239,7 @@ function MobileCard({ mode }: { mode: typeof MODES[0] }) {
                 animate={{ opacity: isPlaying ? 0 : 0.6 }}
                 transition={{ duration: 0.4 }}
             >
-                <img src={mode.image} alt={mode.title} className="w-full h-full object-cover" />
+                <img src={mode.mobileImage || mode.image} alt={mode.title} className="w-full h-full object-cover" />
             </motion.div>
 
             {/* Background Video - shown when playing */}

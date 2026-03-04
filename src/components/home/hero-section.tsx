@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { ChevronDown, Sparkles } from "lucide-react";
 
 const HERO_CONTENT = [
-    { label: "#Pet_Mode", word: `"영원히 빛나는 나의 가족"`, image: "/hero/hero_pet.png" },
+    { label: "#Pet_Mode", word: `"영원히 빛나는 나의 가족"`, image: "/hero/hero_pet.png", mobileImage: "/hero/hero_pet_mobile.png" },
     { label: "#Biz_Mode", word: `"당신의 가치가 증명되는 곳"`, image: "/hero/hero_biz.png" },
     { label: "#Fandom_Mode", word: `"내 방 안의 작은 콘서트"`, image: "/hero/hero_fandom.png" },
     { label: "#Memory_Mode", word: `"가장 찬란한 순간을 켜다"`, image: "/hero/hero_memory.png" }
@@ -27,15 +27,27 @@ export function HeroSection() {
             {/* Dynamic Background Images */}
             <div className="absolute inset-0 z-0">
                 <AnimatePresence mode="popLayout">
+                    {/* Desktop Image */}
                     <motion.img
-                        key={HERO_CONTENT[activeIndex].image}
+                        key={`desktop-${HERO_CONTENT[activeIndex].image}`}
                         src={HERO_CONTENT[activeIndex].image}
                         alt="Hero Background"
                         initial={{ opacity: 0, scale: 1.05 }}
                         animate={{ opacity: 0.65, scale: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 1.5, ease: "easeInOut" }}
-                        className="absolute inset-0 w-full h-full object-cover"
+                        className="hidden md:block absolute inset-0 w-full h-full object-cover"
+                    />
+                    {/* Mobile Image */}
+                    <motion.img
+                        key={`mobile-${HERO_CONTENT[activeIndex].mobileImage || HERO_CONTENT[activeIndex].image}`}
+                        src={HERO_CONTENT[activeIndex].mobileImage || HERO_CONTENT[activeIndex].image}
+                        alt="Hero Background Mobile"
+                        initial={{ opacity: 0, scale: 1.05 }}
+                        animate={{ opacity: 0.65, scale: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 1.5, ease: "easeInOut" }}
+                        className="block md:hidden absolute inset-0 w-full h-full object-cover"
                     />
                 </AnimatePresence>
             </div>
