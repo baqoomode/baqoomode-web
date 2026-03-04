@@ -2,6 +2,8 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ProductDetailClient } from "@/app/products/[id]/product-detail-client";
 
+export const runtime = "edge";
+
 const PRODUCTS_DATA = {
     "light-board": {
         id: "light-board",

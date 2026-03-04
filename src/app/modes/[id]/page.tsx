@@ -1,6 +1,8 @@
 import { notFound } from "next/navigation";
 import { ModeDetailClient } from "./mode-detail-client";
 
+export const runtime = "edge";
+
 // Mock data based on BRAND_IDENTITY.md
 const MODES_DATA = {
     pet: {

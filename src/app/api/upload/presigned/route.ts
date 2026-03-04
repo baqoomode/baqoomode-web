@@ -3,6 +3,8 @@ import { PutObjectCommand } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import { r2Client, R2_BUCKET_NAME } from '@/lib/r2';
 
+export const runtime = "edge";
+
 export async function POST(request: Request) {
     try {
         const { filename, contentType } = await request.json();
