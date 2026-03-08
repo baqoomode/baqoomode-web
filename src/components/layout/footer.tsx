@@ -61,9 +61,9 @@ export function Footer() {
                 {/* Divider */}
                 <div className="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                     <div className="text-xs text-zinc-500 space-y-2">
-                        <p>상호명: (주)바꿔모드 | 대표: 홍길동 | 사업자등록번호: 123-45-67890 <a href="#" className="underline hover:text-zinc-300">사업자정보확인</a></p>
-                        <p>통신판매업신고: 2026-서울강남-0000 | 개인정보보호책임자: 홍길동</p>
-                        <p>주소: 서울특별시 강남구 테헤란로 123 바꿔모드 타워 10층 (우: 06236)</p>
+                        <p>상호명: 효성디지털애드 | 대표: 황혜주 | 사업자등록번호: 582-22-02123 <a href="#" className="underline hover:text-zinc-300">사업자정보확인</a></p>
+                        <p>통신판매업신고: 2026-서울강남-0000 | 개인정보보호책임자: 황혜주</p>
+                        <p>주소: 경기도 고양시 일산동구 중앙로 1079, 3층 340호 (백석동, 백석역 더리브 스타일)</p>
                         <p className="mt-4 pt-2">© 2026 baQoo MODE. All rights reserved.</p>
                     </div>
 
