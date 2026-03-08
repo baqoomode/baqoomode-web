@@ -2,8 +2,7 @@ import { neon } from '@neondatabase/serverless';
 import { drizzle } from 'drizzle-orm/neon-http';
 import * as schema from './schema';
 
-// This expects DATABASE_URL in .env.local
-// Fallback to a dummy postgres URL for frontend-only builds (e.g., on Cloudflare Pages) if the env is missing.
+// This expects DATABASE_URL in environment variables.
 const connectionString = process.env.DATABASE_URL!;
 const sql = neon(connectionString);
 

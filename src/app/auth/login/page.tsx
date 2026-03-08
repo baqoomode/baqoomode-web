@@ -3,6 +3,8 @@ import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { LoginForm } from "@/components/auth/login-form";
 
+export const runtime = "edge";
+
 export default async function LoginPage() {
     // Check if user is already logged in
     const session = await auth.api.getSession({
