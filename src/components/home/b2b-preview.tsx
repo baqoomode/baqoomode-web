@@ -14,7 +14,7 @@ const B2B_PRODUCTS = [
         subtitle: "메인 인프라",
         description: "공간의 근본적인 밝기를 지배하는 완벽한 평면의 빛. DSE 초박형 설계.",
         icon: <Zap className="w-6 h-6 text-white" />,
-        imageSrc: "/b2b/lightboard.png",
+        imageSrc: "/b2b/lightboard-change.webp",
     },
     {
         id: "polygon",
@@ -22,7 +22,7 @@ const B2B_PRODUCTS = [
         subtitle: "기하학적 포인트",
         description: "삼각형, 육각형 등 평범함을 거부하는 3D 입체 V형 구조 설계.",
         icon: <Layers className="w-6 h-6 text-white" />,
-        imageSrc: "/b2b/polygon.png",
+        imageSrc: "/b2b/polygon-change.webp",
     },
     {
         id: "round",
@@ -30,7 +30,7 @@ const B2B_PRODUCTS = [
         subtitle: "빛의 파동",
         description: "공간의 거대한 기둥과 굴곡을 완벽히 감싸는 자유로운 곡면의 형태.",
         icon: <Circle className="w-6 h-6 text-white" />,
-        imageSrc: "/b2b/round.png",
+        imageSrc: "/b2b/round-change.webp",
     },
     {
         id: "strip",
@@ -38,7 +38,7 @@ const B2B_PRODUCTS = [
         subtitle: "공간을 긋는 선",
         description: "천장과 벽의 틈새, 버려진 모서리를 베일 듯 날카롭게 채우는 빛.",
         icon: <Power className="w-6 h-6 text-white" />,
-        imageSrc: "/b2b/strip.png",
+        imageSrc: "/b2b/strip-change.webp",
     },
     {
         id: "hanji",
@@ -46,7 +46,7 @@ const B2B_PRODUCTS = [
         subtitle: "한국의 헤리티지",
         description: "첨단 면발광 위에 덮힌 가장 따뜻한 전통 소재의 결. 은은히 번지는 독보성.",
         icon: <Layout className="w-6 h-6 text-white" />,
-        imageSrc: "/b2b/hanji.png",
+        imageSrc: "/b2b/hanji-change.webp",
     },
     {
         id: "image",
@@ -54,7 +54,7 @@ const B2B_PRODUCTS = [
         subtitle: "메시지의 발현",
         description: "사진, 브랜드 아이덴티티 자체를 선명한 빛으로 캔버스에 투영.",
         icon: <Type className="w-6 h-6 text-white" />,
-        imageSrc: "/b2b/image.png",
+        imageSrc: "/b2b/image-change.webp",
     }
 ];
 
