@@ -26,9 +26,9 @@ export function GNB() {
     const NAV_ITEMS = [
         { label: "브랜드 스토리", href: "/brand" },
         { label: "라이프 모드", href: "/modes" },
-        { label: "비즈니스", href: "/b2b" },
         { label: "제품 라인업", href: "/products" },
         { label: "리얼스토리", href: "/reviews" },
+        { label: "제휴문의", href: "/b2b" },
     ];
 
     return (

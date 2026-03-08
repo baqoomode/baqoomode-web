@@ -30,7 +30,7 @@ const MODES = [
     },
     {
         id: "fandom",
-        title: "덕질 모드",
+        title: "팬덤 모드",
         subtitle: "Fandom Mode",
         slogan: "\"내 방 안의 작은 콘서트\"",
         description: "최애의 가장 빛나는 순간을 내 방에서 매일 만나세요. 나만의 컬렉션 전시회.",
@@ -66,7 +66,7 @@ export function ModeCuration() {
     };
 
     return (
-        <section className="min-h-[calc(100vh-64px)] py-12 md:py-20 flex flex-col justify-center bg-[#050505] relative overflow-hidden">
+        <section id="mode-curation" className="min-h-[calc(100vh-64px)] py-12 md:py-20 flex flex-col justify-center bg-[#050505] relative overflow-hidden">
             <div className="container mx-auto px-4 z-10 relative mb-8 md:mb-16">
                 <div className="text-center">
                     <motion.div
@@ -83,6 +83,39 @@ export function ModeCuration() {
                         </p>
                     </motion.div>
                 </div>
+
+                {/* Desktop Interaction Hint - Impactful & High-Tech Pulse */}
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true }}
+                    className="hidden md:flex justify-center items-center gap-6 mt-8 mb-4"
+                >
+                    <span className="w-8 h-[1px] bg-zinc-800"></span>
+                    <motion.div
+                        animate={{
+                            opacity: [1, 0, 1, 0, 1, 1, 1, 1, 1], // Blink blink -> Stay -> Blink blink
+                        }}
+                        transition={{
+                            duration: 4,
+                            repeat: Infinity,
+                            ease: "easeInOut",
+                            times: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.8, 1]
+                        }}
+                        className="flex items-center gap-5 text-zinc-400 text-base font-bold tracking-[0.25em] uppercase"
+                    >
+                        <span className="relative flex h-3 w-3">
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00dfb6] opacity-75"></span>
+                            <span className="relative inline-flex rounded-full h-3 w-3 bg-[#00dfb6]"></span>
+                        </span>
+                        마우스를 올려서 각 모드를 경험해 보세요
+                        <span className="relative flex h-3 w-3">
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00dfb6] opacity-75"></span>
+                            <span className="relative inline-flex rounded-full h-3 w-3 bg-[#00dfb6]"></span>
+                        </span>
+                    </motion.div>
+                    <span className="w-8 h-[1px] bg-zinc-800"></span>
+                </motion.div>
             </div>
 
             {/* Desktop View (Accordion Hover Interaction) */}
@@ -207,6 +240,19 @@ function DesktopCard({ mode }: { mode: typeof MODES[0] }) {
             {/* Clickable Area Overlay (Routes to specific mode detail page) */}
             <Link href={`/modes/${mode.id}`} className="absolute inset-0 w-full h-full z-10" aria-label={`View ${mode.title}`}>
                 <span className="sr-only">View {mode.title}</span>
+
+                {/* CTA Button that appears on hover */}
+                <motion.div
+                    className="absolute bottom-10 left-1/2 -translate-x-1/2"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: isHovered ? 1 : 0, y: isHovered ? 0 : 10 }}
+                    transition={{ duration: 0.4, delay: 0.6 }}
+                >
+                    <div className="px-8 py-3 rounded-full bg-white/10 backdrop-blur-xl border border-white/20 text-white font-bold tracking-tight hover:bg-white/20 transition-all flex items-center gap-2">
+                        경험하기
+                        <ArrowRight className="w-4 h-4" />
+                    </div>
+                </motion.div>
             </Link>
         </motion.div>
     );
@@ -326,15 +372,18 @@ function MobileCard({ mode }: { mode: typeof MODES[0] }) {
                 </button>
             )}
 
-            {/* Footer Navigation Link (Always accessible at bottom bounds) */}
+            {/* Footer Navigation Link (Upgraded to a prominent button) */}
             <motion.div
                 className="absolute bottom-6 left-6 z-30"
                 animate={{ opacity: isPlaying ? 0 : 1 }}
                 transition={{ duration: 0.3 }}
             >
-                <Link href={`/modes/${mode.id}`} className="inline-flex items-center text-sm font-medium text-white group">
-                    <span>자세히 보기</span>
-                    <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                <Link
+                    href={`/modes/${mode.id}`}
+                    className="inline-flex items-center px-6 py-2.5 rounded-full bg-white/10 backdrop-blur-xl border border-white/20 text-sm font-bold text-white group active:scale-95 transition-all"
+                >
+                    <span className="mr-2">경험하기</span>
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </Link>
             </motion.div>
         </div>

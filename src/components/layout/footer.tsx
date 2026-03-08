@@ -12,22 +12,23 @@ export function Footer() {
                             baQoo<span className="font-light">MODE</span>
                         </h2>
                         <div className="text-zinc-400 space-y-2 text-sm">
-                            <p className="font-medium text-white mb-2">CS CENTER</p>
+                            <p className="font-medium text-white mb-2">고객센터</p>
                             <p className="text-2xl font-bold text-white mb-2 hover:text-[#00dfb6] transition-colors cursor-pointer">1588-0000</p>
-                            <p>AM 10:00 - PM 17:00</p>
-                            <p>Lunch PM 12:00 - PM 13:00</p>
-                            <p>Sat, Sun, Holiday OFF</p>
+                            <p>평일: 10:00 - 17:00</p>
+                            <p>점심: 12:00 - 13:00</p>
+                            <p>토, 일, 공휴일 휴무</p>
                         </div>
                     </div>
 
                     {/* Navigation Links */}
                     <div className="col-span-1 md:col-span-1">
                         <h3 className="text-white font-medium mb-4">About</h3>
-                        <ul className="space-y-3 text-sm text-zinc-400">
+                        <ul className="space-y-2 text-zinc-400 text-sm">
                             <li><Link href="/brand" className="hover:text-white transition-colors">브랜드 스토리</Link></li>
-                            <li><Link href="/products" className="hover:text-white transition-colors">전체 라인업</Link></li>
-                            <li><Link href="/reviews" className="hover:text-white transition-colors">리뷰 & 리얼스토리</Link></li>
-                            <li><Link href="/b2b" className="hover:text-white transition-colors">B2B 제휴 및 대량구매</Link></li>
+                            <li><Link href="/modes" className="hover:text-white transition-colors">라이프 모드</Link></li>
+                            <li><Link href="/products" className="hover:text-white transition-colors">제품 라인업</Link></li>
+                            <li><Link href="/reviews" className="hover:text-white transition-colors">리얼스토리</Link></li>
+                            <li><Link href="/b2b" className="hover:text-white transition-colors">제휴문의</Link></li>
                         </ul>
                     </div>
 
@@ -41,35 +42,39 @@ export function Footer() {
                         </ul>
                     </div>
 
-                    {/* Socials & Additional Info */}
-                    <div className="col-span-1 md:col-span-1">
-                        <h3 className="text-white font-medium mb-4">Follow Us</h3>
-                        <div className="flex gap-4 mb-8">
-                            <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-zinc-400 hover:bg-[#00dfb6] hover:text-black transition-all duration-300">
-                                <Instagram className="w-5 h-5" />
-                            </a>
-                            <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-zinc-400 hover:bg-[#ff0000] hover:text-white transition-all duration-300">
-                                <Youtube className="w-5 h-5" />
-                            </a>
-                            <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-zinc-400 hover:bg-[#fae100] hover:text-black transition-all duration-300">
-                                <MessageCircle className="w-5 h-5" />
-                            </a>
+                    {/* Policy & Social Group */}
+                    <div className="col-span-1 md:col-span-1 space-y-8">
+                        <div>
+                            <h3 className="text-white font-medium mb-4">Policy</h3>
+                            <ul className="space-y-3 text-sm text-zinc-400">
+                                <li><Link href="/privacy" className="hover:text-white transition-colors">개인정보처리방침</Link></li>
+                                <li><Link href="/terms" className="hover:text-white transition-colors">이용약관</Link></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 className="text-white font-medium mb-4">Follow Us</h3>
+                            <div className="flex gap-4">
+                                <a href="#" className="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center text-zinc-400 hover:bg-[#00dfb6] hover:text-black transition-all duration-300">
+                                    <Instagram className="w-4.5 h-4.5" />
+                                </a>
+                                <a href="#" className="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center text-zinc-400 hover:bg-[#ff0000] hover:text-white transition-all duration-300">
+                                    <Youtube className="w-4.5 h-4.5" />
+                                </a>
+                                <a href="#" className="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center text-zinc-400 hover:bg-[#fae100] hover:text-black transition-all duration-300">
+                                    <MessageCircle className="w-4.5 h-4.5" />
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 {/* Divider */}
-                <div className="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                <div className="border-t border-white/5 pt-8">
                     <div className="text-xs text-zinc-500 space-y-2">
                         <p>상호명: 효성디지털애드 | 대표: 황혜주 | 사업자등록번호: 582-22-02123 <a href="#" className="underline hover:text-zinc-300">사업자정보확인</a></p>
-                        <p>통신판매업신고: 2026-서울강남-0000 | 개인정보보호책임자: 황혜주</p>
+                        <p>통신판매업신고: 2026-경기고양-0000 | 개인정보보호책임자: 황혜주</p>
                         <p>주소: 경기도 고양시 일산동구 중앙로 1079, 3층 340호 (백석동, 백석역 더리브 스타일)</p>
                         <p className="mt-4 pt-2">© 2026 baQoo MODE. All rights reserved.</p>
-                    </div>
-
-                    <div className="flex gap-4 text-xs text-zinc-400">
-                        <Link href="/terms" className="hover:text-white font-medium">이용약관</Link>
-                        <Link href="/privacy" className="hover:text-white font-bold text-zinc-300">개인정보처리방침</Link>
                     </div>
                 </div>
             </div>

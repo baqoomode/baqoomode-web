@@ -167,7 +167,7 @@ export function B2BPreview() {
 
 
     return (
-        <section ref={containerRef} className="relative h-[600vh] bg-black">
+        <section id="b2b-preview" ref={containerRef} className="relative h-[600vh] bg-black">
 
             {/* STICKY RENDER LAYER */}
             <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center bg-[#050505]">
@@ -258,8 +258,8 @@ export function B2BPreview() {
                     }}
                     className="absolute bottom-12 flex justify-center w-full pointer-events-auto z-50"
                 >
-                    <Link href="/contact" className="inline-flex items-center justify-center px-10 py-4 rounded-full bg-[#00dfb6] text-black hover:bg-white transition-colors duration-300 font-bold text-lg tracking-wide shadow-xl shadow-[#00dfb6]/30">
-                        B2B 전문가 도입 상담
+                    <Link href="/products" className="inline-flex items-center justify-center px-10 py-4 rounded-full bg-[#00dfb6] text-black hover:bg-white transition-colors duration-300 font-bold text-lg tracking-wide shadow-xl shadow-[#00dfb6]/30">
+                        제품 라인업 상세 보기
                         <ArrowRight className="ml-3 w-5 h-5" />
                     </Link>
                 </motion.div>

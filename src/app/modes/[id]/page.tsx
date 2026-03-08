@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import Link from "next/link";
 import { ModeDetailClient } from "./mode-detail-client";
 
 // export const runtime = "edge";
@@ -73,6 +74,23 @@ export default async function ModePage({ params }: PageProps) {
     return (
         <div className={`min-h-screen bg-gradient-to-b ${modeData.themeColor}`}>
             <div className="container mx-auto px-4 py-12 md:py-24">
+
+                <div className="max-w-3xl mx-auto mb-8">
+                    <Link
+                        href="/modes"
+                        className="inline-flex items-center text-sm font-medium text-white/60 hover:text-white mb-8 transition-colors group"
+                    >
+                        <svg
+                            className="w-4 h-4 mr-2 -translate-x-1 group-hover:-translate-x-2 transition-transform"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                        >
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                        </svg>
+                        라이프 모드 전체로 가기
+                    </Link>
+                </div>
 
                 {/* Storytelling Header */}
                 <div className="max-w-3xl mx-auto text-center mb-16 space-y-6">
