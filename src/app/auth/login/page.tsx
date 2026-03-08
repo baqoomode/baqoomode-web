@@ -5,7 +5,7 @@ import { auth } from "@/lib/auth";
 import Image from "next/image";
 import { headers } from "next/headers";
 
-// export const runtime = "edge";
+export const runtime = "edge";
 
 type AuthNotice = {
     tone: "error" | "info";

@@ -1,7 +1,9 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
-export default function ASPage() {
+export const runtime = "edge";
+
+export default function AfterServicePage() {
     return (
         <div className="min-h-screen bg-black pt-24 text-center">
             <h1 className="text-3xl font-bold text-white mb-8">A/S Guide</h1>

@@ -1,6 +1,8 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
+export const runtime = "edge";
+
 export default function ContactPage() {
     return (
         <div className="min-h-screen bg-black pt-24 text-center">

@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { getCurrentAdminContext } from "@/lib/admin-auth";
 
+export const runtime = "edge";
+
 export async function GET() {
   const { session, admin } = await getCurrentAdminContext();
 

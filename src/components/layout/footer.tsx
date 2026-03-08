@@ -37,7 +37,7 @@ export function Footer() {
                         <ul className="space-y-3 text-sm text-zinc-400">
                             <li><Link href="/support/faq" className="hover:text-white transition-colors">자주 묻는 질문</Link></li>
                             <li><Link href="/support/notice" className="hover:text-white transition-colors">공지사항</Link></li>
-                            <li><Link href="/support/as" className="hover:text-white transition-colors">A/S 안내</Link></li>
+                            <li><Link href="/support/after-service" className="hover:text-white transition-colors">A/S 안내</Link></li>
                             <li><Link href="/support/contact" className="hover:text-white transition-colors">1:1 문의</Link></li>
                         </ul>
                     </div>

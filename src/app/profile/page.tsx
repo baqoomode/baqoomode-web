@@ -15,6 +15,8 @@ import { db } from "@/db";
 import { inquiry, session as sessionTable } from "@/db/schema";
 import { getCurrentAdminContext } from "@/lib/admin-auth";
 
+export const runtime = "edge";
+
 const comingSoonCards = [
   {
     title: "작업 진행 현황",

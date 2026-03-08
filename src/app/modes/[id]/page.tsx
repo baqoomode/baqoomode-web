@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ModeDetailClient } from "./mode-detail-client";
 
-// export const runtime = "edge";
+export const runtime = "edge";
 
 // Mock data based on BRAND_IDENTITY.md
 const MODES_DATA = {
@@ -47,15 +47,6 @@ const MODES_DATA = {
         price: 210000,
     }
 };
-
-export async function generateStaticParams() {
-    return Object.keys(MODES_DATA).map((id) => ({
-        id,
-    }));
-}
-
-export const dynamic = "force-static";
-export const dynamicParams = false;
 
 interface PageProps {
     params: Promise<{

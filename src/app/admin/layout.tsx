@@ -6,6 +6,8 @@ import { SignOutButton } from "@/components/auth/sign-out-button";
 import { Button } from "@/components/ui/button";
 import { getAdminRoleLabel, requireAdminAccess } from "@/lib/admin-auth";
 
+export const runtime = "edge";
+
 export default async function AdminLayout({ children }: { children: ReactNode }) {
   const { session, admin } = await requireAdminAccess();
 

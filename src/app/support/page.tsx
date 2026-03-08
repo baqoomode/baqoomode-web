@@ -1,5 +1,7 @@
 import Link from "next/link";
 
+export const runtime = "edge";
+
 export default function SupportPage() {
     return (
         <div className="min-h-screen bg-black pt-24 text-center">
@@ -9,7 +11,7 @@ export default function SupportPage() {
                 <div className="grid grid-cols-2 gap-4 text-sm">
                     <Link href="/support/faq" className="p-4 bg-white/5 rounded-xl hover:bg-white/10 text-white">FAQ</Link>
                     <Link href="/support/notice" className="p-4 bg-white/5 rounded-xl hover:bg-white/10 text-white">Notice</Link>
-                    <Link href="/support/as" className="p-4 bg-white/5 rounded-xl hover:bg-white/10 text-white">A/S</Link>
+                    <Link href="/support/after-service" className="p-4 bg-white/5 rounded-xl hover:bg-white/10 text-white">A/S</Link>
                     <Link href="/support/contact" className="p-4 bg-white/5 rounded-xl hover:bg-white/10 text-white">1:1 Contact</Link>
                 </div>
             </div>

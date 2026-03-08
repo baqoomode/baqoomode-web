@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ProductDetailClient } from "@/app/products/[id]/product-detail-client";
 
-// export const runtime = "edge";
+export const runtime = "edge";
 
 const PRODUCTS_DATA = {
     "light-board": {
@@ -106,15 +106,6 @@ const PRODUCTS_DATA = {
         powerSpecs: "프로젝트별 맞춤 설계 — 별도 문의를 통해 협의해 주세요.",
     }
 };
-
-export async function generateStaticParams() {
-    return Object.keys(PRODUCTS_DATA).map((id) => ({
-        id,
-    }));
-}
-
-export const dynamic = "force-static";
-export const dynamicParams = false;
 
 interface PageProps {
     params: Promise<{
