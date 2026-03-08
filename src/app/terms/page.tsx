@@ -1,5 +1,3 @@
-export const runtime = "edge";
-
 export default function TermsPage() {
     return (
         <div className="min-h-screen bg-black pt-24 text-white">

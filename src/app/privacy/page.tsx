@@ -1,5 +1,3 @@
-export const runtime = "edge";
-
 export default function PrivacyPage() {
     return (
         <div className="min-h-screen bg-black pt-24 text-white">

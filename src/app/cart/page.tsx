@@ -2,8 +2,6 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ShoppingBag } from "lucide-react";
 
-export const runtime = "edge";
-
 export default function CartPage() {
     return (
         <div className="min-h-screen bg-black pt-24">

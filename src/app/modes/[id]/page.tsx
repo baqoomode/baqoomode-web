@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { ModeDetailClient } from "./mode-detail-client";
 
-export const runtime = "edge";
+// export const runtime = "edge";
 
 // Mock data based on BRAND_IDENTITY.md
 const MODES_DATA = {
@@ -46,6 +46,12 @@ const MODES_DATA = {
         price: 210000,
     }
 };
+
+export async function generateStaticParams() {
+    return Object.keys(MODES_DATA).map((id) => ({
+        id,
+    }));
+}
 
 interface PageProps {
     params: Promise<{
