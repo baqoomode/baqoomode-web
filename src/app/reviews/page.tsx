@@ -109,7 +109,7 @@ export default function ReviewsPage() {
                                         </div>
                                     </div>
                                     <p className="text-muted-foreground text-sm leading-relaxed">
-                                        "{review.content}"
+                                        &ldquo;{review.content}&rdquo;
                                     </p>
                                 </CardContent>
                             </Card>

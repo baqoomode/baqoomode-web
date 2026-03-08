@@ -10,6 +10,11 @@ export const auth = betterAuth({
             ...schema
         }
     }),
+    account: {
+        accountLinking: {
+            enabled: true,
+        },
+    },
     socialProviders: {
         kakao: {
             clientId: process.env.KAKAO_CLIENT_ID!,

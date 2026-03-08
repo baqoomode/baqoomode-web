@@ -52,24 +52,6 @@ export function BrandIntro() {
     // Background glow
     const bgOpacity = useTransform(scrollYProgress, [0, 0.8, 1], [0, 0, 0.3]);
 
-    const features = [
-        {
-            title: "Premium",
-            desc: "박물관 수준의 조명 기술(DSE)을 일상 공간에 제안하는 하이엔드 오브제.",
-            icon: <Sparkles className="w-6 h-6" />
-        },
-        {
-            title: "Emotional",
-            desc: "개개인의 서사, 추억, 팬심을 담아 감성을 울리는 완벽한 맞춤형 미디어.",
-            icon: <Heart className="w-6 h-6" />
-        },
-        {
-            title: "Tech-Driven",
-            desc: "QR코드 AI 연동과 선 숨김(D-COA) 기술이 만드는 마법 같은 공간 경험.",
-            icon: <Zap className="w-6 h-6" />
-        }
-    ];
-
     const slogan = "공간의 표정을 스위칭 하다!";
 
     // In React, doing operations that might differ on server/client could cause hydration issues,
@@ -97,7 +79,7 @@ export function BrandIntro() {
                         style={{ opacity: text1Opacity, y: text1Y, scale: text1Scale }}
                     >
                         <h2 className="text-6xl md:text-[8rem] lg:text-[10rem] font-bold tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-zinc-200 to-zinc-600">
-                            " 바꿔 모드 "
+                            &ldquo;바꿔 모드&rdquo;
                         </h2>
                         <span className="text-xl md:text-3xl lg:text-4xl text-[#00dfb6] font-light tracking-[0.3em]">
                             baQoo MODE

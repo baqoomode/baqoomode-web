@@ -3,14 +3,40 @@
 import { signIn } from "../../lib/auth-client";
 import { Button } from "@/components/ui/button";
 
-export function LoginForm() {
+interface LoginFormProps {
+    redirectTo?: string;
+    reason?: string;
+}
+
+export function LoginForm({ redirectTo = "/", reason }: LoginFormProps) {
+    const buildErrorCallbackURL = (provider: "kakao" | "naver" | "google") => {
+        const params = new URLSearchParams({
+            redirectTo,
+            provider,
+        });
+
+        if (reason) {
+            params.set("reason", reason);
+        }
+
+        return new URL(`/auth/login?${params.toString()}`, window.location.origin).toString();
+    };
+
+    const signInWithProvider = (provider: "kakao" | "naver" | "google") => {
+        return signIn.social({
+            provider,
+            callbackURL: redirectTo,
+            errorCallbackURL: buildErrorCallbackURL(provider),
+        });
+    };
+
     return (
         <div className="flex flex-col gap-3.5 w-full">
             {/* Kakao Login */}
             <Button
                 size="lg"
                 className="w-full h-[56px] bg-[#FEE500] text-[#191919] hover:bg-[#FEE500]/90 font-bold text-[15px] rounded-2xl relative group overflow-hidden transition-all duration-300 border-none shadow-[0_4px_20px_-5px_rgba(254,229,0,0.3)] hover:shadow-[0_8px_25px_-5px_rgba(254,229,0,0.5)]"
-                onClick={() => signIn.social({ provider: "kakao" })}
+                onClick={() => signInWithProvider("kakao")}
             >
                 <div className="absolute left-6 flex items-center justify-center">
                     <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
@@ -24,7 +50,7 @@ export function LoginForm() {
             <Button
                 size="lg"
                 className="w-full h-[56px] bg-[#03C75A] text-white hover:bg-[#03C75A]/90 font-bold text-[15px] rounded-2xl relative group overflow-hidden transition-all duration-300 border-none shadow-[0_4px_20px_-5px_rgba(3,199,90,0.3)] hover:shadow-[0_8px_25px_-5px_rgba(3,199,90,0.5)]"
-                onClick={() => signIn.social({ provider: "naver" })}
+                onClick={() => signInWithProvider("naver")}
             >
                 <div className="absolute left-6 flex items-center justify-center">
                     <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
@@ -38,7 +64,7 @@ export function LoginForm() {
             <Button
                 size="lg"
                 className="w-full h-[56px] bg-white text-[#3c4043] hover:bg-zinc-50 font-bold text-[15px] rounded-2xl relative group overflow-hidden transition-all duration-300 border border-zinc-200 shadow-[0_4px_20px_-5px_rgba(255,255,255,0.1)] hover:shadow-[0_8px_25px_-5px_rgba(255,255,255,0.2)]"
-                onClick={() => signIn.social({ provider: "google" })}
+                onClick={() => signInWithProvider("google")}
             >
                 <div className="absolute left-6 flex items-center justify-center">
                     <svg className="w-5 h-5" viewBox="0 0 24 24">

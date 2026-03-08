@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, type MotionValue } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, Zap, Layers, Circle, Type, Power, Layout } from "lucide-react";
@@ -57,6 +57,95 @@ const B2B_PRODUCTS = [
         imageSrc: "/b2b/image-change.webp",
     }
 ];
+
+function getStepConfig(index: number, stepSize: number) {
+    const center = index * stepSize;
+    const start = Math.max(0, center - stepSize / 2);
+    const end = Math.min(1, center + stepSize / 2);
+    const isLast = index === B2B_PRODUCTS.length - 1;
+
+    return { start, center, end, isLast };
+}
+
+function B2BTextureLayer({
+    product,
+    index,
+    scrollYProgress,
+    stepSize,
+}: {
+    product: (typeof B2B_PRODUCTS)[number];
+    index: number;
+    scrollYProgress: MotionValue<number>;
+    stepSize: number;
+}) {
+    const { start, center, end, isLast } = getStepConfig(index, stepSize);
+    const opacity = useTransform(
+        scrollYProgress,
+        isLast ? [start, center] : [start, center, end],
+        isLast ? [0, 1] : [0, 1, 0]
+    );
+
+    return (
+        <motion.div
+            style={{ opacity }}
+            className="absolute inset-0 w-full h-full flex flex-col items-center justify-center"
+        >
+            <Image
+                src={product.imageSrc}
+                alt={product.title}
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 80vw"
+                priority={index === 0}
+            />
+            <div className="absolute inset-0 bg-black/40 mix-blend-multiply" />
+        </motion.div>
+    );
+}
+
+function B2BTextOverlay({
+    product,
+    index,
+    scrollYProgress,
+    stepSize,
+}: {
+    product: (typeof B2B_PRODUCTS)[number];
+    index: number;
+    scrollYProgress: MotionValue<number>;
+    stepSize: number;
+}) {
+    const { start, center, end, isLast } = getStepConfig(index, stepSize);
+    const opacity = useTransform(
+        scrollYProgress,
+        isLast ? [start, center] : [start, center, end],
+        isLast ? [0, 1] : [0, 1, 0]
+    );
+    const y = useTransform(
+        scrollYProgress,
+        isLast ? [start, center] : [start, center, end],
+        isLast ? [40, 0] : [40, 0, -40]
+    );
+
+    return (
+        <motion.div
+            style={{ opacity, y }}
+            className="absolute z-30 flex flex-col items-center justify-center text-center p-8 w-full max-w-2xl pointer-events-none drop-shadow-2xl"
+        >
+            <div className="mb-6 w-16 h-16 flex items-center justify-center rounded-2xl bg-black/50 backdrop-blur-md border border-white/20">
+                {product.icon}
+            </div>
+            <span className="text-[#00dfb6] font-semibold tracking-widest text-sm mb-3">
+                {product.subtitle}
+            </span>
+            <h3 className="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight tracking-tight mb-6 drop-shadow-md">
+                {product.title}
+            </h3>
+            <p className="text-lg md:text-xl text-zinc-200 font-light leading-relaxed drop-shadow-md">
+                {product.description}
+            </p>
+        </motion.div>
+    );
+}
 
 export function B2BPreview() {
     const containerRef = useRef<HTMLDivElement>(null);
@@ -125,45 +214,9 @@ export function B2BPreview() {
     );
 
 
-    // ---------------------------------------------------------
-    // 2. TEXT CROSSFADE CALCULATIONS 
-    // Show one product text corresponding to the current phase
-    // ---------------------------------------------------------
     const stepSize = 1 / (B2B_PRODUCTS.length - 1); // e.g. 0.2 for 6 items
-
-    const createTextOpacity = (index: number) => {
-        const center = index * stepSize;
-        const start = Math.max(0, center - stepSize / 2);
-
-        // 마지막 항목(이미지 조명)은 스크롤 끝에서도 페이드아웃되지 않고 유지
-        if (index === B2B_PRODUCTS.length - 1) {
-            return useTransform(scrollYProgress, [start, center], [0, 1]);
-        }
-
-        const end = Math.min(1, center + stepSize / 2);
-        return useTransform(
-            scrollYProgress,
-            [start, center, end],
-            [0, 1, 0]
-        );
-    };
-
-    const createTextY = (index: number) => {
-        const center = index * stepSize;
-        const start = Math.max(0, center - stepSize / 2);
-
-        // 마지막 항목은 위로 날아가지 않고 정중앙에 고정
-        if (index === B2B_PRODUCTS.length - 1) {
-            return useTransform(scrollYProgress, [start, center], [40, 0]);
-        }
-
-        const end = Math.min(1, center + stepSize / 2);
-        return useTransform(
-            scrollYProgress,
-            [start, center, end],
-            [40, 0, -40] // Comes up from bottom, exits top
-        );
-    };
+    const introOpacity = useTransform(scrollYProgress, [0, 0.05], [1, 0]);
+    const finalCtaOpacity = useTransform(scrollYProgress, [0.95, 1], [0, 1]);
 
 
     return (
@@ -174,7 +227,7 @@ export function B2BPreview() {
 
                 {/* Intro Title Overlay (Fades out quickly) */}
                 <motion.div
-                    style={{ opacity: useTransform(scrollYProgress, [0, 0.05], [1, 0]) }}
+                    style={{ opacity: introOpacity }}
                     className="absolute top-12 left-0 w-full text-center z-40 pointer-events-none"
                 >
                     <span className="text-[#00dfb6] font-medium tracking-widest text-sm uppercase">
@@ -197,25 +250,14 @@ export function B2BPreview() {
 
                     {/* Texture Crossfades INSIDE the canvas */}
                     {B2B_PRODUCTS.map((product, index) => {
-                        // eslint-disable-next-line react-hooks/rules-of-hooks
-                        const texOpacity = createTextOpacity(index); // Reusing text timing for texture crossfade
-
                         return (
-                            <motion.div
+                            <B2BTextureLayer
                                 key={`tex-${product.id}`}
-                                style={{ opacity: texOpacity }}
-                                className="absolute inset-0 w-full h-full flex flex-col items-center justify-center"
-                            >
-                                <Image
-                                    src={product.imageSrc}
-                                    alt={product.title}
-                                    fill
-                                    className="object-cover"
-                                    sizes="(max-width: 768px) 100vw, 80vw"
-                                    priority={index === 0}
-                                />
-                                <div className="absolute inset-0 bg-black/40 mix-blend-multiply" /> {/* Darkens image slightly for text readability */}
-                            </motion.div>
+                                product={product}
+                                index={index}
+                                scrollYProgress={scrollYProgress}
+                                stepSize={stepSize}
+                            />
                         );
                     })}
                 </motion.div>
@@ -223,39 +265,21 @@ export function B2BPreview() {
 
                 {/* --- TEXT & UI OVERLAYS --- */}
                 {B2B_PRODUCTS.map((product, index) => {
-                    // eslint-disable-next-line react-hooks/rules-of-hooks
-                    const textOpacity = createTextOpacity(index);
-                    // eslint-disable-next-line react-hooks/rules-of-hooks
-                    const textY = createTextY(index);
-
                     return (
-                        <motion.div
+                        <B2BTextOverlay
                             key={`desc-${product.id}`}
-                            style={{ opacity: textOpacity, y: textY }}
-                            className="absolute z-30 flex flex-col items-center justify-center text-center p-8 w-full max-w-2xl pointer-events-none drop-shadow-2xl"
-                        >
-                            <div className="mb-6 w-16 h-16 flex items-center justify-center rounded-2xl bg-black/50 backdrop-blur-md border border-white/20">
-                                {product.icon}
-                            </div>
-                            <span className="text-[#00dfb6] font-semibold tracking-widest text-sm mb-3">
-                                {product.subtitle}
-                            </span>
-                            <h3 className="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight tracking-tight mb-6 drop-shadow-md">
-                                {product.title}
-                            </h3>
-                            <p className="text-lg md:text-xl text-zinc-200 font-light leading-relaxed drop-shadow-md">
-                                {product.description}
-                            </p>
-                        </motion.div>
+                            product={product}
+                            index={index}
+                            scrollYProgress={scrollYProgress}
+                            stepSize={stepSize}
+                        />
                     );
                 })}
 
 
                 {/* Final CTA Button (Fades in at the very end) */}
                 <motion.div
-                    style={{
-                        opacity: useTransform(scrollYProgress, [0.95, 1], [0, 1])
-                    }}
+                    style={{ opacity: finalCtaOpacity }}
                     className="absolute bottom-12 flex justify-center w-full pointer-events-auto z-50"
                 >
                     <Link href="/products" className="inline-flex items-center justify-center px-10 py-4 rounded-full bg-[#00dfb6] text-black hover:bg-white transition-colors duration-300 font-bold text-lg tracking-wide shadow-xl shadow-[#00dfb6]/30">

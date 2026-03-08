@@ -17,7 +17,6 @@ interface ModeData {
 export function ModeDetailClient({ mode }: { mode: ModeData }) {
     const [selectedSize, setSelectedSize] = useState("A4");
     const [selectedFrame, setSelectedFrame] = useState("Silver");
-    const [file, setFile] = useState<File | null>(null);
 
     // A simple formatter for Korean Won
     const formatPrice = (price: number) => new Intl.NumberFormat('ko-KR', { style: 'currency', currency: 'KRW' }).format(price);

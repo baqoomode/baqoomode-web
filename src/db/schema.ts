@@ -28,7 +28,11 @@ export const account = pgTable("account", {
     providerId: text("providerId").notNull(),
     accessToken: text("accessToken"),
     refreshToken: text("refreshToken"),
+    idToken: text("idToken"),
+    accessTokenExpiresAt: timestamp("accessTokenExpiresAt"),
+    refreshTokenExpiresAt: timestamp("refreshTokenExpiresAt"),
     expiresAt: timestamp("expiresAt"),
+    scope: text("scope"),
     password: text("password"),
     createdAt: timestamp("createdAt").notNull(),
     updatedAt: timestamp("updatedAt").notNull()
@@ -41,6 +45,15 @@ export const verification = pgTable("verification", {
     expiresAt: timestamp("expiresAt").notNull(),
     createdAt: timestamp("createdAt"),
     updatedAt: timestamp("updatedAt")
+});
+
+export const adminUser = pgTable("admin_user", {
+    id: text("id").primaryKey(),
+    userId: text("userId").notNull().unique().references(() => user.id),
+    role: text("role").notNull().default("operator"), // owner, manager, operator
+    isActive: boolean("isActive").notNull().default(true),
+    createdAt: timestamp("createdAt").notNull(),
+    updatedAt: timestamp("updatedAt").notNull()
 });
 
 // baQoo MODE Business Logic Tables

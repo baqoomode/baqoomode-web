@@ -126,7 +126,7 @@ export function ReviewsPreview() {
                                             </div>
                                         </div>
                                         <p className="text-zinc-400 text-xs md:text-sm leading-relaxed font-light">
-                                            "{review.content}"
+                                            &ldquo;{review.content}&rdquo;
                                         </p>
                                     </div>
                                 </CardContent>

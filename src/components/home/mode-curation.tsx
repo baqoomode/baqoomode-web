@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Play, Pause } from "lucide-react";
 
@@ -194,7 +195,13 @@ function DesktopCard({ mode }: { mode: typeof MODES[0] }) {
                 animate={{ opacity: isHovered ? 0 : 0.6 }}
                 transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
             >
-                <img src={mode.image} alt={mode.title} className="w-full h-full object-cover" />
+                <Image
+                    src={mode.image}
+                    alt={mode.title}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                />
             </motion.div>
 
             {/* Background Video - fades in on hover */}
@@ -310,7 +317,13 @@ function MobileCard({ mode }: { mode: typeof MODES[0] }) {
                 animate={{ opacity: isPlaying ? 0 : 0.6 }}
                 transition={{ duration: 0.4 }}
             >
-                <img src={mode.mobileImage || mode.image} alt={mode.title} className="w-full h-full object-cover" />
+                <Image
+                    src={mode.mobileImage || mode.image}
+                    alt={mode.title}
+                    fill
+                    className="object-cover"
+                    sizes="85vw"
+                />
             </motion.div>
 
             {/* Background Video - shown when playing */}

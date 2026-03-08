@@ -1,5 +1,3 @@
-import { motion } from "framer-motion";
-
 export default function BrandPage() {
     return (
         <div className="min-h-screen bg-background">
@@ -23,10 +21,10 @@ export default function BrandPage() {
                         <div className="space-y-6">
                             <h2 className="text-4xl font-bold">baQoo <span className="text-primary font-black">MODE</span></h2>
                             <p className="text-lg text-muted-foreground leading-relaxed">
-                                '바꿔모드'는 세상의 모든 빛을 끄고 켜듯, 우리의 일상과 감정 상태를 스위칭한다는 직관적인 네이밍입니다.
+                                &lsquo;바꿔모드&rsquo;는 세상의 모든 빛을 끄고 켜듯, 우리의 일상과 감정 상태를 스위칭한다는 직관적인 네이밍입니다.
                             </p>
                             <p className="text-lg text-muted-foreground leading-relaxed">
-                                영어로 'baQoo MODE'로 표기하여 프리미엄 테크 라이프스타일 브랜드의 이미지를 부여하며, Q의 디자인을 스위치(전원) 아이콘 형태로 시각화하여 정체성을 확립합니다.
+                                영어로 &lsquo;baQoo MODE&rsquo;로 표기하여 프리미엄 테크 라이프스타일 브랜드의 이미지를 부여하며, Q의 디자인을 스위치(전원) 아이콘 형태로 시각화하여 정체성을 확립합니다.
                             </p>
                         </div>
                         <div className="aspect-square bg-white/5 border border-white/10 rounded-3xl flex items-center justify-center p-12">

@@ -98,7 +98,7 @@ export default async function ModePage({ params }: PageProps) {
                         {modeData.title}
                     </h1>
                     <h2 className={`text-2xl md:text-3xl font-bold ${modeData.accentColor}`}>
-                        "{modeData.slogan}"
+                        &ldquo;{modeData.slogan}&rdquo;
                     </h2>
                     <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
                         {modeData.description}
