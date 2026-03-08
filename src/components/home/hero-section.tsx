@@ -6,10 +6,10 @@ import { Button } from "@/components/ui/button";
 import { ChevronDown, Sparkles } from "lucide-react";
 
 const HERO_CONTENT = [
-    { label: "#Pet_Mode", word: `"영원히 빛나는 나의 가족"`, image: "/hero/hero_pet.png", mobileImage: "/hero/hero_pet_mobile.png" },
-    { label: "#Biz_Mode", word: `"당신의 가치가 증명되는 곳"`, image: "/hero/hero_biz.png" },
-    { label: "#Fandom_Mode", word: `"내 방 안의 작은 콘서트"`, image: "/hero/hero_fandom.png" },
-    { label: "#Memory_Mode", word: `"가장 찬란한 순간을 켜다"`, image: "/hero/hero_memory.png" }
+    { label: "#Pet_Mode", word: `"영원히 빛나는 나의 가족"`, image: "/hero/hero_pet-change.webp", mobileImage: "/hero/hero_pet_mobile-change.webp" },
+    { label: "#Biz_Mode", word: `"당신의 가치가 증명되는 곳"`, image: "/hero/hero_biz-change.webp" },
+    { label: "#Fandom_Mode", word: `"내 방 안의 작은 콘서트"`, image: "/hero/hero_fandom-change.webp" },
+    { label: "#Memory_Mode", word: `"가장 찬란한 순간을 켜다"`, image: "/hero/hero_memory-change.webp" }
 ];
 
 export function HeroSection() {
@@ -123,19 +123,19 @@ export function HeroSection() {
                 </div>
             </div>
 
-            {/* Scroll Indicator */}
             <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 1.5, duration: 1 }}
-                className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center justify-center gap-2 text-white/50"
+                className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center justify-center gap-2 text-white"
             >
-                <span className="text-xs tracking-widest uppercase font-medium">Scroll to explore</span>
+                <span className="text-[10px] tracking-[0.2em] uppercase font-bold opacity-70">Scroll to explore</span>
                 <motion.div
                     animate={{ y: [0, 8, 0] }}
                     transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                    className="text-primary drop-shadow-[0_0_8px_rgba(0,223,182,0.5)]"
                 >
-                    <ChevronDown className="w-5 h-5" />
+                    <ChevronDown className="w-6 h-6" />
                 </motion.div>
             </motion.div>
         </section>

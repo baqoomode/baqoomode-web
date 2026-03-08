@@ -1,11 +1,21 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight, Star } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 
-const PREVIEW_REVIEWS = [
+interface Review {
+    id: number;
+    name: string;
+    mode: string;
+    rating: number;
+    content: string;
+    imageColor: string;
+}
+
+const PREVIEW_REVIEWS: Review[] = [
     {
         id: 1,
         name: "김** 님",
@@ -57,6 +67,8 @@ const PREVIEW_REVIEWS = [
 ];
 
 export function ReviewsPreview() {
+    const [isPaused, setIsPaused] = useState(false);
+
     return (
         <section className="min-h-[calc(100vh-64px)] py-20 flex flex-col justify-center bg-background relative overflow-hidden">
             <div className="container mx-auto px-4 max-w-6xl relative z-10">
@@ -79,33 +91,41 @@ export function ReviewsPreview() {
 
             {/* Marquee Container */}
             <div className="relative w-full overflow-hidden mb-20 flex">
-                {/* Left/Right fading edges */}
-                <div className="absolute top-0 left-0 w-32 h-full bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
-                <div className="absolute top-0 right-0 w-32 h-full bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
+                {/* Left/Right fading edges - hidden on mobile to avoid clutter */}
+                <div className="hidden md:block absolute top-0 left-0 w-32 h-full bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
+                <div className="hidden md:block absolute top-0 right-0 w-32 h-full bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
 
-                {/* Moving track */}
-                <div className="flex w-max animate-marquee hover:[animation-play-state:paused] gap-6 px-3">
-                    {/* Render the list twice to create an infinite loops */}
+                {/* Moving track - interactive pause on click/touch for mobile */}
+                <div
+                    className="flex w-max animate-marquee hover:[animation-play-state:paused] gap-6 px-3"
+                    style={{
+                        animationPlayState: isPaused ? 'paused' : 'running',
+                        cursor: 'pointer'
+                    }}
+                    onClick={() => setIsPaused(!isPaused)}
+                >
+                    {/* Render the list twice to create an infinite loop */}
                     {[...PREVIEW_REVIEWS, ...PREVIEW_REVIEWS].map((review, index) => (
-                        <div key={`${review.id}-${index}`} className="w-[350px] md:w-[400px] flex-shrink-0">
-                            <Card className="bg-[#121319]/80 border-white/5 backdrop-blur-md overflow-hidden hover:bg-[#16171e] transition-colors h-full flex flex-col rounded-2xl">
+                        <div key={`${review.id}-${index}`} className="w-[300px] md:w-[400px] flex-shrink-0">
+                            <Card className="bg-[#121319]/80 border-white/5 backdrop-blur-md overflow-hidden hover:bg-[#16171e] transition-colors h-full flex flex-col rounded-2xl cursor-pointer">
+                                {/* Photo placeholder */}
                                 <div className={`w-full h-40 ${review.imageColor} flex items-center justify-center shrink-0 opacity-80 mix-blend-luminosity hover:mix-blend-normal transition-all duration-500`}>
-                                    <span className="text-white/30 text-xs font-medium tracking-widest uppercase">Customer Photo</span>
+                                    <span className="text-white/30 text-[10px] font-medium tracking-widest uppercase">Customer Photo</span>
                                 </div>
-                                <CardContent className="p-8 flex-1 flex flex-col justify-between">
+                                <CardContent className="p-6 md:p-8 flex-1 flex flex-col justify-between">
                                     <div>
-                                        <div className="flex justify-between items-start mb-6">
+                                        <div className="flex justify-between items-start mb-4 md:mb-6">
                                             <div>
-                                                <h3 className="font-bold text-white mb-2">{review.name}</h3>
-                                                <span className="text-[10px] text-[#00dfb6] border border-[#00dfb6]/30 bg-[#00dfb6]/5 px-2.5 py-1 rounded-full uppercase tracking-wider">{review.mode}</span>
+                                                <h3 className="font-bold text-white mb-1.5 text-sm md:text-base">{review.name}</h3>
+                                                <span className="text-[9px] md:text-[10px] text-[#00dfb6] border border-[#00dfb6]/30 bg-[#00dfb6]/5 px-2.5 py-1 rounded-full uppercase tracking-wider">{review.mode}</span>
                                             </div>
                                             <div className="flex gap-1">
                                                 {[...Array(review.rating)].map((_, i) => (
-                                                    <Star key={i} className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+                                                    <Star key={i} className="w-3 h-3 md:w-3.5 md:h-3.5 fill-amber-400 text-amber-400" />
                                                 ))}
                                             </div>
                                         </div>
-                                        <p className="text-zinc-400 text-sm leading-relaxed font-light">
+                                        <p className="text-zinc-400 text-xs md:text-sm leading-relaxed font-light">
                                             "{review.content}"
                                         </p>
                                     </div>

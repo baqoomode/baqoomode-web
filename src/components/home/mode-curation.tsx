@@ -13,8 +13,8 @@ const MODES = [
         subtitle: "Pet Mode",
         slogan: "\"영원히 빛나는 나의 가족\"",
         description: "반려동물의 가장 예쁜 모습을 빛나는 프레임에 담아 영원히 간직하세요.",
-        image: "/hero/hero_pet.png",
-        mobileImage: "/hero/hero_pet_mobile.png",
+        image: "/hero/hero_pet_mobile-change.webp",
+        mobileImage: "/hero/hero_pet_mobile-change.webp",
         video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4", // 안전한 구글 클라우드 샘플 1
         accent: "text-amber-500",
     },
@@ -24,7 +24,7 @@ const MODES = [
         subtitle: "Biz/Office Mode",
         slogan: "\"당신의 가치가 증명되는 곳\"",
         description: "빛나는 상패와 위촉장. 작은 프레임 하나가 매장의 품격을 높여주는 솔루션입니다.",
-        image: "/hero/hero_biz.png",
+        image: "/hero/hero_biz-change.webp",
         video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4", // 안전한 구글 클라우드 샘플 2
         accent: "text-emerald-400",
     },
@@ -34,7 +34,7 @@ const MODES = [
         subtitle: "Fandom Mode",
         slogan: "\"내 방 안의 작은 콘서트\"",
         description: "최애의 가장 빛나는 순간을 내 방에서 매일 만나세요. 나만의 컬렉션 전시회.",
-        image: "/hero/hero_fandom.png",
+        image: "/hero/hero_fandom-change.webp",
         video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4", // 안전한 구글 클라우드 샘플 3
         accent: "text-pink-500",
     },
@@ -44,13 +44,27 @@ const MODES = [
         subtitle: "Memory Mode",
         slogan: "\"가장 찬란한 순간을 켜다\"",
         description: "인생의 가장 아름다운 순간을 빛으로 켜두세요. 감동적인 프리미엄 액자.",
-        image: "/hero/hero_memory.png",
+        image: "/hero/hero_memory-change.webp",
         video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4", // 안전한 구글 클라우드 샘플 4
         accent: "text-amber-200",
     }
 ];
 
 export function ModeCuration() {
+    const [activeMobileIndex, setActiveMobileIndex] = useState(0);
+    const scrollRef = useRef<HTMLDivElement>(null);
+
+    const handleScroll = () => {
+        if (scrollRef.current) {
+            const { scrollLeft, clientWidth } = scrollRef.current;
+            // Approximate card width + gap for indexing
+            const index = Math.round(scrollLeft / (clientWidth * 0.82));
+            if (index !== activeMobileIndex) {
+                setActiveMobileIndex(index);
+            }
+        }
+    };
+
     return (
         <section className="min-h-[calc(100vh-64px)] py-12 md:py-20 flex flex-col justify-center bg-[#050505] relative overflow-hidden">
             <div className="container mx-auto px-4 z-10 relative mb-8 md:mb-16">
@@ -79,7 +93,11 @@ export function ModeCuration() {
             </div>
 
             {/* Mobile View (Swipe Carousel with Play Toggle) */}
-            <div className="flex md:hidden w-full h-[550px] overflow-x-auto snap-x snap-mandatory gap-4 px-6 pb-8 hide-scrollbar">
+            <div
+                ref={scrollRef}
+                onScroll={handleScroll}
+                className="flex md:hidden w-full h-[550px] overflow-x-auto snap-x snap-mandatory gap-4 px-6 pb-8 hide-scrollbar scroll-smooth"
+            >
                 {MODES.map((mode) => (
                     <MobileCard key={mode.id} mode={mode} />
                 ))}
@@ -87,10 +105,13 @@ export function ModeCuration() {
 
             {/* Mobile Pagination Hint */}
             <div className="md:hidden flex justify-center gap-2 mt-4 text-zinc-600">
-                <span className="w-2 h-2 rounded-full bg-[#00dfb6]"></span>
-                <span className="w-2 h-2 rounded-full bg-zinc-800"></span>
-                <span className="w-2 h-2 rounded-full bg-zinc-800"></span>
-                <span className="w-2 h-2 rounded-full bg-zinc-800"></span>
+                {MODES.map((_, i) => (
+                    <span
+                        key={i}
+                        className={`w-2 h-2 rounded-full transition-all duration-300 ${i === activeMobileIndex ? "bg-[#00dfb6] w-4" : "bg-zinc-800"
+                            }`}
+                    />
+                ))}
             </div>
         </section>
     );
@@ -105,10 +126,10 @@ function DesktopCard({ mode }: { mode: typeof MODES[0] }) {
 
     useEffect(() => {
         if (isHovered) {
-            // Add a slight delay to ensure UI expansion before hammering the video play
+            // Add a deliberate delay to ensure the premium 'viscous' feel
             const timeout = setTimeout(() => {
                 videoRef.current?.play().catch(() => { });
-            }, 100);
+            }, 550); // Doubled delay to match the slower reveal
             return () => clearTimeout(timeout);
         } else {
             if (videoRef.current) {
@@ -127,14 +148,18 @@ function DesktopCard({ mode }: { mode: typeof MODES[0] }) {
             onBlur={() => setIsHovered(false)}
             className="relative h-full overflow-hidden rounded-[2rem] bg-zinc-900 border border-white/10 group cursor-pointer"
             initial={{ flex: 1 }}
-            animate={{ flex: isHovered ? 2.5 : 1 }}
-            transition={{ duration: 0.6, ease: [0.32, 0.72, 0, 1] }}
+            animate={{ flex: isHovered ? 2.8 : 1 }}
+            transition={{
+                duration: 1.4,
+                ease: [0.22, 1, 0.36, 1],
+                layout: { duration: 1.4, ease: [0.22, 1, 0.36, 1] }
+            }}
         >
             {/* Background Image - fades out on hover */}
             <motion.div
                 className="absolute inset-0 w-full h-full pointer-events-none"
                 animate={{ opacity: isHovered ? 0 : 0.6 }}
-                transition={{ duration: 0.4 }}
+                transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
             >
                 <img src={mode.image} alt={mode.title} className="w-full h-full object-cover" />
             </motion.div>
@@ -148,7 +173,7 @@ function DesktopCard({ mode }: { mode: typeof MODES[0] }) {
                 playsInline
                 className="absolute inset-0 w-full h-full object-cover pointer-events-none"
                 animate={{ opacity: isHovered ? 1 : 0 }}
-                transition={{ duration: 0.4 }}
+                transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
             />
 
             {/* Dark Gradient Overlay for text readability */}
@@ -162,7 +187,7 @@ function DesktopCard({ mode }: { mode: typeof MODES[0] }) {
             <motion.div
                 className="absolute inset-0 p-8 flex flex-col justify-end pointer-events-none"
                 animate={{ opacity: isHovered ? 0 : 1 }}
-                transition={{ duration: 0.3 }}
+                transition={{ duration: 0.8, ease: "circOut" }}
             >
                 <div className="flex items-center gap-3 mb-2">
                     <span className="w-8 h-[2px] bg-[#00dfb6]"></span>
@@ -231,7 +256,7 @@ function MobileCard({ mode }: { mode: typeof MODES[0] }) {
     return (
         <div
             ref={cardRef}
-            className="relative flex-none w-[85vw] h-full snap-center rounded-[2rem] overflow-hidden bg-zinc-900 border border-white/10"
+            className="relative flex-none w-[85vw] h-full snap-center snap-always rounded-[2rem] overflow-hidden bg-zinc-900 border border-white/10"
         >
             {/* Background Image - hidden when playing */}
             <motion.div

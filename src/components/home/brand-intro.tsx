@@ -15,9 +15,9 @@ export function BrandIntro() {
     });
 
     // 1. Scene 1: "바꿔 모드"
-    const text1Opacity = useTransform(scrollYProgress, [0, 0.05, 0.2, 0.25], [0, 1, 1, 0]);
-    const text1Y = useTransform(scrollYProgress, [0, 0.05, 0.25], [100, 0, -100]);
-    const text1Scale = useTransform(scrollYProgress, [0, 0.05, 0.25], [0.95, 1, 1.05]);
+    const text1Opacity = useTransform(scrollYProgress, [0, 0.002, 0.18, 0.23], [0.4, 1, 1, 0]);
+    const text1Y = useTransform(scrollYProgress, [0, 0.002, 0.23], [0, 0, -80]);
+    const text1Scale = useTransform(scrollYProgress, [0, 0.002, 0.23], [1, 1, 1.02]);
 
     // 2. Scene 2: "공간의 표정을 스위칭 하다!"
     const text2Opacity = useTransform(scrollYProgress, [0.22, 0.3, 0.4, 0.48], [0, 1, 1, 0]);
