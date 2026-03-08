@@ -13,7 +13,7 @@ export default async function LoginPage() {
                 {/* Brand Logo */}
                 <div className="mb-8 transform hover:scale-105 transition-transform duration-500">
                     <Image
-                        src="/baqoo_login1.png"
+                        src="/baqoo_login1-change-png.webp"
                         alt="baQoo MODE"
                         width={180}
                         height={60}
