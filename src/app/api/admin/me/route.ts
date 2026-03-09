@@ -1,10 +1,10 @@
 import { NextResponse } from "next/server";
-import { getCurrentAdminContext } from "@/lib/admin-auth";
+import { getAdminContextFromHeaders } from "@/lib/admin-context";
 
 export const runtime = "edge";
 
-export async function GET() {
-  const { session, admin } = await getCurrentAdminContext();
+export async function GET(request: Request) {
+  const { session, admin } = await getAdminContextFromHeaders(request.headers);
 
   return NextResponse.json(
     {

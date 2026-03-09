@@ -1,16 +1,12 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
 import { Bell, ExternalLink, Sparkles } from "lucide-react";
+import { AdminAccountPanel } from "@/components/admin/admin-account-panel";
 import { AdminMobileNav, AdminSidebarNav } from "@/components/admin/admin-nav";
 import { SignOutButton } from "@/components/auth/sign-out-button";
 import { Button } from "@/components/ui/button";
-import { getAdminRoleLabel, requireAdminAccess } from "@/lib/admin-auth";
 
-export const runtime = "edge";
-
-export default async function AdminLayout({ children }: { children: ReactNode }) {
-  const { session, admin } = await requireAdminAccess();
-
+export default function AdminLayout({ children }: { children: ReactNode }) {
   return (
     <div className="min-h-screen bg-[#08090d] text-white">
       <div className="mx-auto flex min-h-screen max-w-[1680px]">
@@ -27,14 +23,7 @@ export default async function AdminLayout({ children }: { children: ReactNode })
             <AdminSidebarNav />
           </div>
 
-          <div className="mt-6 rounded-[24px] border border-white/8 bg-white/[0.03] p-4">
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-zinc-500">현재 관리자</p>
-            <p className="mt-3 text-sm font-semibold text-white">{session.user.name}</p>
-            <p className="mt-1 text-xs text-zinc-400">{session.user.email}</p>
-            <div className="mt-3 inline-flex rounded-full border border-[#00dfb6]/20 bg-[#00dfb6]/10 px-3 py-1 text-xs font-medium text-[#8cf3de]">
-              {getAdminRoleLabel(admin.role)}
-            </div>
-          </div>
+          <AdminAccountPanel />
 
           <div className="mt-6 rounded-[24px] border border-white/8 bg-white/[0.03] p-4">
             <div className="flex items-start gap-3">

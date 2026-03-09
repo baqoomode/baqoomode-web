@@ -1,0 +1,248 @@
+2026-03-08T20:35:46.884823Z	Cloning repository...
+2026-03-08T20:35:48.191627Z	From https://github.com/baqoomode/baqoomode-web
+2026-03-08T20:35:48.192045Z	 * branch            54baa8504187f43db420caab0720abbcac3af1c8 -> FETCH_HEAD
+2026-03-08T20:35:48.192167Z	
+2026-03-08T20:35:48.2328Z	HEAD is now at 54baa85 배포오류 해결
+2026-03-08T20:35:48.233137Z	
+2026-03-08T20:35:48.295303Z	
+2026-03-08T20:35:48.295777Z	Using v2 root directory strategy
+2026-03-08T20:35:48.318098Z	Success: Finished cloning repository files
+2026-03-08T20:35:50.418653Z	Checking for configuration in a Wrangler configuration file (BETA)
+2026-03-08T20:35:50.419166Z	
+2026-03-08T20:35:51.522786Z	No Wrangler configuration file found. Continuing.
+2026-03-08T20:35:51.741756Z	Detected the following tools from environment: npm@10.9.2, nodejs@22.16.0
+2026-03-08T20:35:51.742231Z	Installing project dependencies: npm clean-install --progress=false
+2026-03-08T20:35:58.045323Z	npm warn deprecated node-domexception@1.0.0: Use your platform's native DOMException instead
+2026-03-08T20:36:00.182909Z	npm warn deprecated @esbuild-kit/esm-loader@2.6.5: Merged into tsx: https://tsx.is
+2026-03-08T20:36:00.220154Z	npm warn deprecated @esbuild-kit/core-utils@3.3.2: Merged into tsx: https://tsx.is
+2026-03-08T20:36:22.96105Z	
+2026-03-08T20:36:22.961642Z	added 935 packages, and audited 936 packages in 30s
+2026-03-08T20:36:22.961789Z	
+2026-03-08T20:36:22.962122Z	249 packages are looking for funding
+2026-03-08T20:36:22.962322Z	  run `npm fund` for details
+2026-03-08T20:36:23.085909Z	
+2026-03-08T20:36:23.086398Z	17 vulnerabilities (2 low, 10 moderate, 5 high)
+2026-03-08T20:36:23.086541Z	
+2026-03-08T20:36:23.086594Z	To address issues that do not require attention, run:
+2026-03-08T20:36:23.086645Z	  npm audit fix
+2026-03-08T20:36:23.086704Z	
+2026-03-08T20:36:23.086743Z	To address all issues (including breaking changes), run:
+2026-03-08T20:36:23.086772Z	  npm audit fix --force
+2026-03-08T20:36:23.086803Z	
+2026-03-08T20:36:23.086832Z	Run `npm audit` for details.
+2026-03-08T20:36:23.194726Z	Executing user command: npx @cloudflare/next-on-pages@1
+2026-03-08T20:36:24.40004Z	npm warn exec The following package was not found and will be installed: @cloudflare/next-on-pages@1.13.16
+2026-03-08T20:36:36.121889Z	npm warn deprecated path-match@1.2.4: This package is archived and no longer maintained. For support, visit https://github.com/expressjs/express/discussions
+2026-03-08T20:36:36.99149Z	npm warn deprecated tar@6.2.1: Old versions of tar are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+2026-03-08T20:36:37.60887Z	npm warn deprecated glob@10.5.0: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+2026-03-08T20:36:37.618647Z	npm warn deprecated @cloudflare/next-on-pages@1.13.16: Please use the OpenNext adapter instead: https://opennext.js.org/cloudflare
+2026-03-08T20:36:48.611579Z	⚡️ @cloudflare/next-on-pages CLI v.1.13.16
+2026-03-08T20:36:48.773414Z	⚡️ Detected Package Manager: npm (10.9.2)
+2026-03-08T20:36:48.773662Z	⚡️ Preparing project...
+2026-03-08T20:36:48.776589Z	⚡️ Project is ready
+2026-03-08T20:36:48.776795Z	⚡️ Building project...
+2026-03-08T20:36:49.845713Z	▲  npm warn exec The following package was not found and will be installed: vercel@50.28.0
+2026-03-08T20:36:56.495918Z	▲  npm warn deprecated tar@7.5.7: Old versions of tar are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+2026-03-08T20:36:58.456534Z	▲  > NOTE: The Vercel CLI now collects telemetry regarding usage of the CLI.
+2026-03-08T20:36:58.456947Z	▲  > This information is used to shape the CLI roadmap and prioritize features.
+2026-03-08T20:36:58.457298Z	▲  > You can learn more, including how to opt-out if you'd not like to participate in this program, by visiting the following URL:
+2026-03-08T20:36:58.457448Z	▲  > https://vercel.com/docs/cli/about-telemetry
+2026-03-08T20:36:58.576436Z	▲  WARN! Build not running on Vercel. System environment variables will not be available.
+2026-03-08T20:36:58.761314Z	▲  Installing dependencies...
+2026-03-08T20:37:00.394474Z	▲  up to date in 2s
+2026-03-08T20:37:00.395122Z	▲  249 packages are looking for funding
+2026-03-08T20:37:00.395308Z	▲  run `npm fund` for details
+2026-03-08T20:37:00.414847Z	▲  Detected Next.js version: 16.1.6
+2026-03-08T20:37:00.427334Z	▲  Running "npm run build"
+2026-03-08T20:37:00.623312Z	▲  > baqoomode@0.1.0 build
+2026-03-08T20:37:00.623594Z	▲  > next build
+2026-03-08T20:37:01.666365Z	▲  Attention: Next.js now collects completely anonymous telemetry regarding usage.
+2026-03-08T20:37:01.66687Z	▲  This information is used to shape Next.js' roadmap and prioritize features.
+2026-03-08T20:37:01.666988Z	▲  You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+2026-03-08T20:37:01.667213Z	▲  https://nextjs.org/telemetry
+2026-03-08T20:37:01.67948Z	▲  ▲ Next.js 16.1.6 (Turbopack)
+2026-03-08T20:37:01.680002Z	▲  
+2026-03-08T20:37:01.782033Z	▲  Creating an optimized production build ...
+2026-03-08T20:37:19.25422Z	▲  ✓ Compiled successfully in 16.7s
+2026-03-08T20:37:19.265176Z	▲  Running TypeScript ...
+2026-03-08T20:37:26.977396Z	▲  Collecting page data using 3 workers ...
+2026-03-08T20:37:27.580156Z	▲  ⚠ Using edge runtime on a page currently disables static generation for that page
+2026-03-08T20:37:28.371513Z	▲  Generating static pages using 3 workers (0/12) ...
+2026-03-08T20:37:28.790399Z	▲  Generating static pages using 3 workers (3/12)
+2026-03-08T20:37:28.791788Z	▲  Generating static pages using 3 workers (6/12)
+2026-03-08T20:37:28.889342Z	▲  Generating static pages using 3 workers (9/12)
+2026-03-08T20:37:28.891769Z	▲  ✓ Generating static pages using 3 workers (12/12) in 521.0ms
+2026-03-08T20:37:28.900298Z	▲  Finalizing page optimization ...
+2026-03-08T20:37:28.907037Z	▲  
+2026-03-08T20:37:28.913195Z	▲  Route (app)
+2026-03-08T20:37:28.913644Z	▲  ┌ ○ /
+2026-03-08T20:37:28.913781Z	▲  ├ ○ /_not-found
+2026-03-08T20:37:28.913901Z	▲  ├ ƒ /admin
+2026-03-08T20:37:28.914081Z	▲  ├ ƒ /admin/catalog
+2026-03-08T20:37:28.914347Z	▲  ├ ƒ /admin/consents
+2026-03-08T20:37:28.914595Z	▲  ├ ƒ /admin/contents
+2026-03-08T20:37:28.914751Z	▲  ├ ƒ /admin/customers
+2026-03-08T20:37:28.91485Z	▲  ├ ƒ /admin/deliveries
+2026-03-08T20:37:28.914957Z	▲  ├ ƒ /admin/inquiries
+2026-03-08T20:37:28.915021Z	▲  ├ ƒ /admin/reports
+2026-03-08T20:37:28.915085Z	▲  ├ ƒ /admin/support
+2026-03-08T20:37:28.915139Z	▲  ├ ƒ /admin/work-items
+2026-03-08T20:37:28.915332Z	▲  ├ ƒ /api/admin/me
+2026-03-08T20:37:28.915537Z	▲  ├ ƒ /api/auth/[...all]
+2026-03-08T20:37:28.915693Z	▲  ├ ƒ /api/upload/presigned
+2026-03-08T20:37:28.915807Z	▲  ├ ƒ /auth/login
+2026-03-08T20:37:28.915881Z	▲  ├ ○ /b2b
+2026-03-08T20:37:28.915932Z	▲  ├ ○ /brand
+2026-03-08T20:37:28.915979Z	▲  ├ ○ /cart
+2026-03-08T20:37:28.916029Z	▲  ├ ○ /modes
+2026-03-08T20:37:28.916115Z	▲  ├ ƒ /modes/[id]
+2026-03-08T20:37:28.916186Z	▲  ├ ○ /privacy
+2026-03-08T20:37:28.916223Z	▲  ├ ○ /products
+2026-03-08T20:37:28.91625Z	▲  ├ ƒ /products/[id]
+2026-03-08T20:37:28.916276Z	▲  ├ ƒ /profile
+2026-03-08T20:37:28.916347Z	▲  ├ ○ /reviews
+2026-03-08T20:37:28.916402Z	▲  ├ ƒ /support
+2026-03-08T20:37:28.916463Z	▲  ├ ƒ /support/after-service
+2026-03-08T20:37:28.916546Z	▲  ├ ƒ /support/contact
+2026-03-08T20:37:28.916669Z	▲  ├ ƒ /support/faq
+2026-03-08T20:37:28.91713Z	▲  ├ ƒ /support/notice
+2026-03-08T20:37:28.917311Z	▲  └ ○ /terms
+2026-03-08T20:37:28.917457Z	▲  
+2026-03-08T20:37:28.917638Z	▲  
+2026-03-08T20:37:28.917796Z	▲  ○  (Static)   prerendered as static content
+2026-03-08T20:37:28.917906Z	▲  ƒ  (Dynamic)  server-rendered on demand
+2026-03-08T20:37:40.894849Z	▲  Tracing initial Next.js server files due to missing build trace: 11.495s
+2026-03-08T20:37:41.511766Z	▲  Traced Next.js server files in: 12.114s
+2026-03-08T20:37:41.630899Z	▲  Created all serverless functions in: 118.783ms
+2026-03-08T20:37:47.696212Z	▲  Collected static files (public/, static/, .next/static): 5.741ms
+2026-03-08T20:37:48.190833Z	▲  Build Completed in .vercel/output [49s]
+2026-03-08T20:37:48.513832Z	⚡️ Completed `npx vercel build`.
+2026-03-08T20:38:02.436982Z	
+2026-03-08T20:38:02.437355Z	⚡️ Build Summary (@cloudflare/next-on-pages v1.13.16)
+2026-03-08T20:38:02.437461Z	⚡️ 
+2026-03-08T20:38:02.437514Z	⚡️ Edge Function Routes (22)
+2026-03-08T20:38:02.437613Z	⚡️   ┌ /admin
+2026-03-08T20:38:02.437704Z	⚡️   ├ /admin/catalog
+2026-03-08T20:38:02.437753Z	⚡️   ├ /admin/consents
+2026-03-08T20:38:02.4378Z	⚡️   ├ /admin/contents
+2026-03-08T20:38:02.437997Z	⚡️   ├ /admin/customers
+2026-03-08T20:38:02.438049Z	⚡️   ├ /admin/deliveries
+2026-03-08T20:38:02.438093Z	⚡️   ├ /admin/inquiries
+2026-03-08T20:38:02.438139Z	⚡️   ├ /admin/reports
+2026-03-08T20:38:02.438187Z	⚡️   ├ /admin/support
+2026-03-08T20:38:02.43828Z	⚡️   ├ /admin/work-items
+2026-03-08T20:38:02.438339Z	⚡️   ├ /api/admin/me
+2026-03-08T20:38:02.438384Z	⚡️   ├ /api/auth/[...all]
+2026-03-08T20:38:02.438467Z	⚡️   ├ /api/upload/presigned
+2026-03-08T20:38:02.438525Z	⚡️   ├ /auth/login
+2026-03-08T20:38:02.438566Z	⚡️   ├ /modes/[id]
+2026-03-08T20:38:02.438604Z	⚡️   ├ /products/[id]
+2026-03-08T20:38:02.438661Z	⚡️   ├ /profile
+2026-03-08T20:38:02.438696Z	⚡️   ├ /support
+2026-03-08T20:38:02.438729Z	⚡️   ├ /support/after-service
+2026-03-08T20:38:02.438762Z	⚡️   ├ /support/contact
+2026-03-08T20:38:02.438795Z	⚡️   ├ /support/faq
+2026-03-08T20:38:02.43883Z	⚡️   └ /support/notice
+2026-03-08T20:38:02.438867Z	⚡️ 
+2026-03-08T20:38:02.439043Z	⚡️ Prerendered Routes (87)
+2026-03-08T20:38:02.439106Z	⚡️   ┌ /
+2026-03-08T20:38:02.439145Z	⚡️   ├ /_global-error
+2026-03-08T20:38:02.439229Z	⚡️   ├ /_global-error.rsc
+2026-03-08T20:38:02.439276Z	⚡️   ├ /_global-error.segments/__PAGE__.segment.rsc
+2026-03-08T20:38:02.43931Z	⚡️   ├ /_global-error.segments/_full.segment.rsc
+2026-03-08T20:38:02.439343Z	⚡️   ├ /_global-error.segments/_head.segment.rsc
+2026-03-08T20:38:02.439378Z	⚡️   ├ /_global-error.segments/_index.segment.rsc
+2026-03-08T20:38:02.439412Z	⚡️   ├ /_global-error.segments/_tree.segment.rsc
+2026-03-08T20:38:02.439448Z	⚡️   ├ /_not-found
+2026-03-08T20:38:02.439517Z	⚡️   ├ /_not-found.rsc
+2026-03-08T20:38:02.439571Z	⚡️   ├ /_not-found.segments/_full.segment.rsc
+2026-03-08T20:38:02.439605Z	⚡️   ├ /_not-found.segments/_head.segment.rsc
+2026-03-08T20:38:02.43964Z	⚡️   ├ /_not-found.segments/_index.segment.rsc
+2026-03-08T20:38:02.439702Z	⚡️   ├ /_not-found.segments/_not-found.segment.rsc
+2026-03-08T20:38:02.43976Z	⚡️   ├ /_not-found.segments/_not-found/__PAGE__.segment.rsc
+2026-03-08T20:38:02.439808Z	⚡️   ├ /_not-found.segments/_tree.segment.rsc
+2026-03-08T20:38:02.439844Z	⚡️   ├ /b2b
+2026-03-08T20:38:02.439888Z	⚡️   ├ /b2b.rsc
+2026-03-08T20:38:02.439928Z	⚡️   ├ /b2b.segments/_full.segment.rsc
+2026-03-08T20:38:02.439961Z	⚡️   └ ... 68 more
+2026-03-08T20:38:02.439994Z	⚡️ 
+2026-03-08T20:38:02.440031Z	⚡️ Other Static Assets (57)
+2026-03-08T20:38:02.440085Z	⚡️   ┌ /404.html
+2026-03-08T20:38:02.440129Z	⚡️   ├ /404.rsc.json
+2026-03-08T20:38:02.440226Z	⚡️   ├ /404.segments/_tree.segment.rsc.json
+2026-03-08T20:38:02.440297Z	⚡️   ├ /500.html
+2026-03-08T20:38:02.440374Z	⚡️   └ ... 53 more
+2026-03-08T20:38:02.44049Z	
+2026-03-08T20:38:02.592929Z	⚡️ Build log saved to '.vercel/output/static/_worker.js/nop-build-log.json'
+2026-03-08T20:38:02.593555Z	⚡️ Generated '.vercel/output/static/_worker.js/index.js'.
+2026-03-08T20:38:02.593753Z	⚡️ Build completed in 14.08s
+2026-03-08T20:38:02.866152Z	Finished
+2026-03-08T20:38:03.846873Z	Checking for configuration in a Wrangler configuration file (BETA)
+2026-03-08T20:38:03.847408Z	
+2026-03-08T20:38:04.962384Z	No Wrangler configuration file found. Continuing.
+2026-03-08T20:38:04.965228Z	Found _worker.js in output directory. Uploading.
+2026-03-08T20:38:04.978692Z	 ⛅️ wrangler 3.101.0
+2026-03-08T20:38:04.979115Z	-------------------
+2026-03-08T20:38:05.903307Z	Attaching additional modules:
+2026-03-08T20:38:05.915474Z	┌─────────────────────────────────────────────────────────────────────┬──────┬──────────────┐
+2026-03-08T20:38:05.915993Z	│ Name                                                                │ Type │ Size         │
+2026-03-08T20:38:05.916181Z	├─────────────────────────────────────────────────────────────────────┼──────┼──────────────┤
+2026-03-08T20:38:05.91636Z	│ __next-on-pages-dist__/cache/adaptor.js                             │ esm  │ 2.29 KiB     │
+2026-03-08T20:38:05.916442Z	├─────────────────────────────────────────────────────────────────────┼──────┼──────────────┤
+2026-03-08T20:38:05.916568Z	│ __next-on-pages-dist__/cache/cache-api.js                           │ esm  │ 0.43 KiB     │
+2026-03-08T20:38:05.916638Z	├─────────────────────────────────────────────────────────────────────┼──────┼──────────────┤
+2026-03-08T20:38:05.916753Z	│ __next-on-pages-dist__/cache/kv.js                                  │ esm  │ 0.35 KiB     │
+2026-03-08T20:38:05.917332Z	├─────────────────────────────────────────────────────────────────────┼──────┼──────────────┤
+2026-03-08T20:38:05.917581Z	│ __next-on-pages-dist__/functions/admin/catalog.func.js              │ esm  │ 2680.40 KiB  │
+2026-03-08T20:38:05.917748Z	├─────────────────────────────────────────────────────────────────────┼──────┼──────────────┤
+2026-03-08T20:38:05.918017Z	│ __next-on-pages-dist__/functions/admin/consents.func.js             │ esm  │ 2681.96 KiB  │
+2026-03-08T20:38:05.918159Z	├─────────────────────────────────────────────────────────────────────┼──────┼──────────────┤
+2026-03-08T20:38:05.918516Z	│ __next-on-pages-dist__/functions/admin/contents.func.js             │ esm  │ 2679.67 KiB  │
+2026-03-08T20:38:05.918582Z	├─────────────────────────────────────────────────────────────────────┼──────┼──────────────┤
+2026-03-08T20:38:05.918862Z	│ __next-on-pages-dist__/functions/admin/customers.func.js            │ esm  │ 2679.55 KiB  │
+2026-03-08T20:38:05.919116Z	├─────────────────────────────────────────────────────────────────────┼──────┼──────────────┤
+2026-03-08T20:38:05.919434Z	│ __next-on-pages-dist__/functions/admin/deliveries.func.js           │ esm  │ 2681.27 KiB  │
+2026-03-08T20:38:05.919551Z	├─────────────────────────────────────────────────────────────────────┼──────┼──────────────┤
+2026-03-08T20:38:05.919627Z	│ __next-on-pages-dist__/functions/admin/inquiries.func.js            │ esm  │ 2770.82 KiB  │
+2026-03-08T20:38:05.920284Z	├─────────────────────────────────────────────────────────────────────┼──────┼──────────────┤
+2026-03-08T20:38:05.920394Z	│ __next-on-pages-dist__/functions/admin/reports.func.js              │ esm  │ 2671.04 KiB  │
+2026-03-08T20:38:05.920488Z	├─────────────────────────────────────────────────────────────────────┼──────┼──────────────┤
+2026-03-08T20:38:05.920884Z	│ __next-on-pages-dist__/functions/admin/support.func.js              │ esm  │ 2670.56 KiB  │
+2026-03-08T20:38:05.921221Z	├─────────────────────────────────────────────────────────────────────┼──────┼──────────────┤
+2026-03-08T20:38:05.921309Z	│ __next-on-pages-dist__/functions/admin/work-items.func.js           │ esm  │ 2681.56 KiB  │
+2026-03-08T20:38:05.921353Z	├─────────────────────────────────────────────────────────────────────┼──────┼──────────────┤
+2026-03-08T20:38:05.921817Z	│ __next-on-pages-dist__/functions/admin.func.js                      │ esm  │ 2685.21 KiB  │
+2026-03-08T20:38:05.921932Z	├─────────────────────────────────────────────────────────────────────┼──────┼──────────────┤
+2026-03-08T20:38:05.922013Z	│ __next-on-pages-dist__/functions/api/admin/me.func.js               │ esm  │ 1461.45 KiB  │
+2026-03-08T20:38:05.922211Z	├─────────────────────────────────────────────────────────────────────┼──────┼──────────────┤
+2026-03-08T20:38:05.922583Z	│ __next-on-pages-dist__/functions/api/auth/[...all].func.js          │ esm  │ 1488.19 KiB  │
+2026-03-08T20:38:05.922656Z	├─────────────────────────────────────────────────────────────────────┼──────┼──────────────┤
+2026-03-08T20:38:05.922701Z	│ __next-on-pages-dist__/functions/api/upload/presigned.func.js       │ esm  │ 525.42 KiB   │
+2026-03-08T20:38:05.922745Z	├─────────────────────────────────────────────────────────────────────┼──────┼──────────────┤
+2026-03-08T20:38:05.922777Z	│ __next-on-pages-dist__/functions/auth/login.func.js                 │ esm  │ 2630.82 KiB  │
+2026-03-08T20:38:05.922818Z	├─────────────────────────────────────────────────────────────────────┼──────┼──────────────┤
+2026-03-08T20:38:05.922877Z	│ __next-on-pages-dist__/functions/modes/[id].func.js                 │ esm  │ 1488.04 KiB  │
+2026-03-08T20:38:05.923071Z	├─────────────────────────────────────────────────────────────────────┼──────┼──────────────┤
+2026-03-08T20:38:05.923152Z	│ __next-on-pages-dist__/functions/products/[id].func.js              │ esm  │ 1476.05 KiB  │
+2026-03-08T20:38:05.923201Z	├─────────────────────────────────────────────────────────────────────┼──────┼──────────────┤
+2026-03-08T20:38:05.923342Z	│ __next-on-pages-dist__/functions/profile.func.js                    │ esm  │ 2663.61 KiB  │
+2026-03-08T20:38:05.923427Z	├─────────────────────────────────────────────────────────────────────┼──────┼──────────────┤
+2026-03-08T20:38:05.923996Z	│ __next-on-pages-dist__/functions/support/after-service.func.js      │ esm  │ 1456.26 KiB  │
+2026-03-08T20:38:05.924088Z	├─────────────────────────────────────────────────────────────────────┼──────┼──────────────┤
+2026-03-08T20:38:05.924253Z	│ __next-on-pages-dist__/functions/support/contact.func.js            │ esm  │ 1456.17 KiB  │
+2026-03-08T20:38:05.924429Z	├─────────────────────────────────────────────────────────────────────┼──────┼──────────────┤
+2026-03-08T20:38:05.924686Z	│ __next-on-pages-dist__/functions/support/faq.func.js                │ esm  │ 1456.10 KiB  │
+2026-03-08T20:38:05.925058Z	├─────────────────────────────────────────────────────────────────────┼──────┼──────────────┤
+2026-03-08T20:38:05.925171Z	│ __next-on-pages-dist__/functions/support/notice.func.js             │ esm  │ 1456.15 KiB  │
+2026-03-08T20:38:05.925457Z	├─────────────────────────────────────────────────────────────────────┼──────┼──────────────┤
+2026-03-08T20:38:05.925582Z	│ __next-on-pages-dist__/functions/support.func.js                    │ esm  │ 1425.52 KiB  │
+2026-03-08T20:38:05.925866Z	├─────────────────────────────────────────────────────────────────────┼──────┼──────────────┤
+2026-03-08T20:38:05.925979Z	│ __next-on-pages-dist__/manifest/87ce6d068f9af5bd2ca4a81baed2861f.js │ esm  │ 0.25 KiB     │
+2026-03-08T20:38:05.926272Z	├─────────────────────────────────────────────────────────────────────┼──────┼──────────────┤
+2026-03-08T20:38:05.926375Z	│ __next-on-pages-dist__/manifest/__RSC_SERVER_MANIFEST.js            │ esm  │ 0.20 KiB     │
+2026-03-08T20:38:05.926665Z	├─────────────────────────────────────────────────────────────────────┼──────┼──────────────┤
+2026-03-08T20:38:05.926774Z	│ Total (27 modules)                                                  │      │ 45869.36 KiB │
+2026-03-08T20:38:05.926879Z	└─────────────────────────────────────────────────────────────────────┴──────┴──────────────┘
+2026-03-08T20:38:06.055226Z	✨ Compiled Worker successfully
+2026-03-08T20:38:07.617498Z	Generated Pages Functions bundle size (47058328) is over the limit of 25.0 MiB
+2026-03-08T20:38:09.331531Z	Failed: generating Pages Functions failed. Check the logs above for more information. If this continues for an unknown reason, contact support: https://cfl.re/3WgEyrH

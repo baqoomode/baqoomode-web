@@ -1,11 +1,7 @@
 import { LoginForm } from "@/components/auth/login-form";
-import { SignOutButton } from "@/components/auth/sign-out-button";
-import { getSafeRedirectPath } from "@/lib/admin-auth";
-import { auth } from "@/lib/auth";
+import { LoginSessionPanel } from "@/components/auth/login-session-panel";
+import { getSafeRedirectPath } from "@/lib/admin-access";
 import Image from "next/image";
-import { headers } from "next/headers";
-
-export const runtime = "edge";
 
 type AuthNotice = {
     tone: "error" | "info";
@@ -101,7 +97,6 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
     const error = resolvedSearchParams?.error;
     const errorDescription = resolvedSearchParams?.error_description;
     const provider = resolvedSearchParams?.provider;
-    const session = await auth.api.getSession({ headers: await headers() });
     const isAdminLogin = redirectTo.startsWith("/admin");
     const isForbiddenAdminEntry = reason === "forbidden";
     const authNotice = getAuthNotice(error, provider, errorDescription);
@@ -147,20 +142,7 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
                                 ? "다른 관리자 계정으로 다시 로그인해 주세요. 먼저 현재 계정에서 로그아웃한 뒤 진행하는 것을 권장합니다."
                                 : "로그인 후에는 원래 접근하려던 관리자 페이지로 자동으로 돌아갑니다."}
                         </p>
-                        {session ? (
-                            <div className="mt-4 flex items-center justify-between gap-3 rounded-2xl border border-white/10 bg-black/30 px-4 py-3">
-                                <div>
-                                    <p className="text-xs text-zinc-500">현재 로그인 계정</p>
-                                    <p className="text-sm font-medium text-white">
-                                        {session.user.name} · {session.user.email}
-                                    </p>
-                                </div>
-                                <SignOutButton
-                                    label="계정 전환"
-                                    className="border-white/10 bg-white/[0.03] text-zinc-200 hover:bg-white/[0.05]"
-                                />
-                            </div>
-                        ) : null}
+                        <LoginSessionPanel />
                     </div>
                 ) : null}
 

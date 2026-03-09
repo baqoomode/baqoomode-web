@@ -3,7 +3,9 @@ import { count, desc, eq, gt, gte } from "drizzle-orm";
 import { AdminPageHeader, MetricCard, SectionCard, StatusBadge } from "@/components/admin/admin-ui";
 import { db } from "@/db";
 import { adminUser, inquiry, product, productVariant, session, user } from "@/db/schema";
-import { getAdminRoleLabel } from "@/lib/admin-auth";
+import { getAdminRoleLabel } from "@/lib/admin-access";
+
+export const runtime = "edge";
 
 const policyCards = [
   {
