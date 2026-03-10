@@ -17,7 +17,26 @@ function getProviderLabel(provider?: string | null) {
     }
 }
 
-function getAuthNotice(error?: string | null, provider?: string | null, errorDescription?: string | null): AuthNotice | null {
+function getWelcomeNotice(provider?: string | null): AuthNotice {
+    const providerLabel = getProviderLabel(provider);
+
+    return {
+        tone: "success",
+        title: "환영합니다. 가입이 완료되었습니다.",
+        description: `${providerLabel} 계정 연결이 완료되었습니다. 이제 바꿔모드의 제작 경험을 바로 시작하실 수 있습니다.`,
+    };
+}
+
+function getAuthNotice(
+    error?: string | null,
+    provider?: string | null,
+    errorDescription?: string | null,
+    welcome?: string | null
+): AuthNotice | null {
+    if (welcome === "1") {
+        return getWelcomeNotice(provider);
+    }
+
     if (!error) {
         return null;
     }
@@ -79,10 +98,11 @@ export function LoginPageClient() {
     const searchParams = useSearchParams();
     const redirectTo = getSafeRedirectPath(searchParams.get("redirectTo"), "/");
     const reason = searchParams.get("reason");
+    const welcome = searchParams.get("welcome");
     const error = searchParams.get("error");
     const errorDescription = searchParams.get("error_description");
     const provider = searchParams.get("provider");
-    const authNotice = getAuthNotice(error, provider, errorDescription);
+    const authNotice = getAuthNotice(error, provider, errorDescription, welcome);
 
     return <LoginPageShell redirectTo={redirectTo} reason={reason} authNotice={authNotice} errorCode={error} />;
 }

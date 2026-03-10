@@ -1,9 +1,10 @@
+import Link from "next/link";
 import Image from "next/image";
 import { LoginForm } from "@/components/auth/login-form";
 import { LoginSessionPanel } from "@/components/auth/login-session-panel";
 
 export type AuthNotice = {
-    tone: "error" | "info";
+    tone: "error" | "info" | "success";
     title: string;
     description: string;
 };
@@ -18,6 +19,7 @@ interface LoginPageShellProps {
 export function LoginPageShell({ redirectTo = "/", reason, authNotice, errorCode }: LoginPageShellProps) {
     const isAdminLogin = redirectTo.startsWith("/admin");
     const isForbiddenAdminEntry = reason === "forbidden";
+    const isWelcomeNotice = authNotice?.tone === "success";
 
     return (
         <div className="min-h-[calc(100vh-64px)] bg-black flex flex-col items-center justify-start pt-24 md:pt-40 px-4 relative overflow-hidden">
@@ -62,18 +64,35 @@ export function LoginPageShell({ redirectTo = "/", reason, authNotice, errorCode
                         className={`mb-6 w-full rounded-3xl border p-5 text-left ${
                             authNotice.tone === "error"
                                 ? "border-rose-500/30 bg-rose-500/10"
-                                : "border-amber-400/30 bg-amber-400/10"
+                                : authNotice.tone === "success"
+                                    ? "border-[#00dfb6]/30 bg-[#00dfb6]/10"
+                                    : "border-amber-400/30 bg-amber-400/10"
                         }`}
                     >
                         <p
                             className={`text-xs font-semibold uppercase tracking-[0.24em] ${
-                                authNotice.tone === "error" ? "text-rose-200" : "text-amber-200"
+                                authNotice.tone === "error"
+                                    ? "text-rose-200"
+                                    : authNotice.tone === "success"
+                                        ? "text-[#8cf3de]"
+                                        : "text-amber-200"
                             }`}
                         >
-                            Auth Notice
+                            {isWelcomeNotice ? "Welcome" : "Auth Notice"}
                         </p>
                         <p className="mt-3 text-sm font-semibold text-white">{authNotice.title}</p>
                         <p className="mt-2 text-sm leading-6 text-zinc-200">{authNotice.description}</p>
+                        {isWelcomeNotice ? (
+                            <>
+                                <LoginSessionPanel />
+                                <Link
+                                    href={redirectTo}
+                                    className="mt-4 inline-flex w-full items-center justify-center rounded-2xl border border-[#00dfb6]/30 bg-[#00dfb6]/10 px-4 py-3 text-sm font-semibold text-[#8cf3de] transition-colors hover:bg-[#00dfb6]/15"
+                                >
+                                    시작하러 가기
+                                </Link>
+                            </>
+                        ) : null}
                         {errorCode ? <p className="mt-3 text-[11px] text-zinc-400">오류 코드: {errorCode}</p> : null}
                     </div>
                 ) : null}

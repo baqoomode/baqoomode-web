@@ -9,7 +9,10 @@ interface LoginFormProps {
 }
 
 export function LoginForm({ redirectTo = "/", reason }: LoginFormProps) {
-    const buildErrorCallbackURL = (provider: "kakao" | "naver" | "google") => {
+    const buildLoginPageURL = (
+        provider: "kakao" | "naver" | "google",
+        extras?: Record<string, string>
+    ) => {
         const params = new URLSearchParams({
             redirectTo,
             provider,
@@ -19,7 +22,19 @@ export function LoginForm({ redirectTo = "/", reason }: LoginFormProps) {
             params.set("reason", reason);
         }
 
+        Object.entries(extras ?? {}).forEach(([key, value]) => {
+            params.set(key, value);
+        });
+
         return new URL(`/auth/login?${params.toString()}`, window.location.origin).toString();
+    };
+
+    const buildErrorCallbackURL = (provider: "kakao" | "naver" | "google") => {
+        return buildLoginPageURL(provider);
+    };
+
+    const buildNewUserCallbackURL = (provider: "kakao" | "naver" | "google") => {
+        return buildLoginPageURL(provider, { welcome: "1" });
     };
 
     const signInWithProvider = (provider: "kakao" | "naver" | "google") => {
@@ -27,6 +42,7 @@ export function LoginForm({ redirectTo = "/", reason }: LoginFormProps) {
             provider,
             callbackURL: redirectTo,
             errorCallbackURL: buildErrorCallbackURL(provider),
+            newUserCallbackURL: buildNewUserCallbackURL(provider),
         });
     };
 
