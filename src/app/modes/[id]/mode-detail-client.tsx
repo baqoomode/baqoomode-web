@@ -1,134 +1,434 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
-import { motion } from "framer-motion";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { CheckCircle2, UploadCloud, Info } from "lucide-react";
-import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
+import { ArrowRight, Check, CircleHelp, Clock3, ShieldCheck, ShoppingCart, Sparkles, Truck } from "lucide-react";
 
-interface ModeData {
-    id: string;
-    title: string;
-    features: string[];
-    price: number;
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { FadeUpInView } from "@/components/ui/fade-up-in-view";
+
+export interface ModeOption {
+    label: string;
+    note: string;
+    priceDelta: number;
+    recommended?: boolean;
 }
 
-export function ModeDetailClient({ mode }: { mode: ModeData }) {
-    const [selectedSize, setSelectedSize] = useState("A4");
-    const [selectedFrame, setSelectedFrame] = useState("Silver");
+export interface FrameOption {
+    label: string;
+    note: string;
+    swatchClass: string;
+    priceDelta: number;
+}
 
-    // A simple formatter for Korean Won
-    const formatPrice = (price: number) => new Intl.NumberFormat('ko-KR', { style: 'currency', currency: 'KRW' }).format(price);
+export interface ModeProcessStep {
+    title: string;
+    description: string;
+}
+
+export interface ModeData {
+    id: string;
+    title: string;
+    koreanLabel: string;
+    slogan: string;
+    signal: string;
+    description: string;
+    themeColor: string;
+    accentColor: string;
+    accentRgb: string;
+    price: number;
+    priceNote: string;
+    leadTime: string;
+    deliveryNote: string;
+    features: string[];
+    idealFor: string[];
+    packageItems: string[];
+    deliverables: string[];
+    processSteps: ModeProcessStep[];
+    trustPoints: string[];
+    sizeOptions: ModeOption[];
+    frameOptions: FrameOption[];
+    heroHighlights: string[];
+}
+
+const formatPrice = (price: number) => `${new Intl.NumberFormat("ko-KR").format(price)}원`;
+
+const getAccentBadgeStyle = (accentRgb: string) => ({
+    borderColor: `rgba(${accentRgb}, 0.2)`,
+    backgroundColor: `rgba(${accentRgb}, 0.1)`,
+});
+
+const getAccentGlowStyle = (accentRgb: string) => ({
+    background: `radial-gradient(circle at top right, rgba(${accentRgb}, 0.18), transparent 34%), linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.03))`,
+});
+
+export function ModeDetailClient({ mode }: { mode: ModeData }) {
+    const [selectedSizeLabel, setSelectedSizeLabel] = useState(mode.sizeOptions[0]?.label ?? "");
+    const [selectedFrameLabel, setSelectedFrameLabel] = useState(mode.frameOptions[0]?.label ?? "");
+
+    const selectedSize = mode.sizeOptions.find((option) => option.label === selectedSizeLabel) ?? mode.sizeOptions[0];
+    const selectedFrame = mode.frameOptions.find((option) => option.label === selectedFrameLabel) ?? mode.frameOptions[0];
+    const optionDelta = selectedSize.priceDelta + selectedFrame.priceDelta;
+    const totalPrice = mode.price + optionDelta;
 
     return (
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start max-w-7xl mx-auto">
-
-            {/* Visual / Product Image Gallery Area */}
-            <div className="lg:col-span-7 space-y-6 sticky top-24">
-                <motion.div
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    className="aspect-square bg-black/40 rounded-3xl border border-white/10 overflow-hidden relative flex items-center justify-center"
-                >
-                    {/* Mock Product Glow Effect */}
-                    <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent" />
-                    <div className="w-2/3 h-2/3 bg-gray-900 rounded-xl shadow-[0_0_100px_rgba(255,255,255,0.1)] border border-gray-800 flex items-center justify-center">
-                        <span className="text-muted-foreground">Premium Frame Preview</span>
-                    </div>
-                </motion.div>
-
-                {/* Features List */}
-                <div className="grid grid-cols-2 gap-4">
-                    {mode.features.map((feature, idx) => (
-                        <div key={idx} className="flex items-center gap-2 p-4 rounded-xl bg-card/30 border border-white/5 backdrop-blur-sm">
-                            <CheckCircle2 className="w-5 h-5 text-primary" />
-                            <span className="text-sm font-medium">{feature}</span>
+        <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_360px] xl:grid-cols-[minmax(0,1fr)_400px]">
+            <div className="space-y-8">
+                <FadeUpInView>
+                    <Card className="overflow-hidden rounded-[30px] border border-white/10 py-0 text-white" style={getAccentGlowStyle(mode.accentRgb)}>
+                        <CardContent className="px-6 py-7 md:px-8 md:py-8">
+                        <div className="flex items-center gap-3">
+                            <div className="flex h-10 w-10 items-center justify-center rounded-2xl border text-white" style={getAccentBadgeStyle(mode.accentRgb)}>
+                                <Sparkles className="size-5" />
+                            </div>
+                            <div>
+                                <p className={`text-sm font-semibold uppercase tracking-[0.28em] ${mode.accentColor}`}>Mode Overview</p>
+                                <p className="mt-1 text-sm text-zinc-400">{mode.koreanLabel}</p>
+                            </div>
                         </div>
-                    ))}
-                </div>
+
+                        <div className="mt-6 grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
+                            <div className="rounded-[28px] border border-white/10 bg-black/30 p-6">
+                                <p className="text-sm font-medium text-zinc-400">&ldquo;{mode.slogan}&rdquo;</p>
+                                <h2 className="mt-3 text-2xl font-black tracking-tight text-white md:text-3xl">{mode.signal}</h2>
+                                <p className="mt-4 text-sm leading-7 text-zinc-300 md:text-base">{mode.description}</p>
+
+                                <div className="mt-6 flex flex-wrap gap-2">
+                                    {mode.heroHighlights.map((item) => (
+                                        <span
+                                            key={`${mode.id}-highlight-${item}`}
+                                            className="rounded-full border px-3 py-1 text-xs font-medium text-zinc-100"
+                                            style={getAccentBadgeStyle(mode.accentRgb)}
+                                        >
+                                            {item}
+                                        </span>
+                                    ))}
+                                </div>
+                            </div>
+
+                            <div className="space-y-3">
+                                {mode.features.map((feature) => (
+                                    <div key={`${mode.id}-feature-${feature}`} className="rounded-[24px] border border-white/10 bg-white/[0.03] px-4 py-4">
+                                        <div className="flex items-start gap-3">
+                                            <div className="mt-0.5 rounded-full border p-1" style={getAccentBadgeStyle(mode.accentRgb)}>
+                                                <Check className={`size-3.5 ${mode.accentColor}`} />
+                                            </div>
+                                            <p className="text-sm leading-6 text-zinc-200">{feature}</p>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                        </CardContent>
+                    </Card>
+                </FadeUpInView>
+
+                <FadeUpInView delay={0.04}>
+                    <Card className="rounded-[30px] border border-white/10 bg-white/[0.03] py-0 text-white">
+                        <CardContent className="px-6 py-7 md:px-8 md:py-8">
+                        <p className={`text-sm font-semibold uppercase tracking-[0.28em] ${mode.accentColor}`}>Best For</p>
+                        <h2 className="mt-3 text-2xl font-black tracking-tight text-white">이런 순간에 특히 잘 맞습니다</h2>
+
+                        <div className="mt-6 grid gap-4 md:grid-cols-2">
+                            {mode.idealFor.map((item, index) => (
+                                <FadeUpInView key={`${mode.id}-ideal-${index}`} delay={index * 0.07}>
+                                    <div className="rounded-[24px] border border-white/8 bg-black/20 p-5">
+                                        <p className={`text-sm font-semibold ${mode.accentColor}`}>0{index + 1}</p>
+                                        <p className="mt-3 text-base font-semibold leading-7 text-zinc-100">{item}</p>
+                                    </div>
+                                </FadeUpInView>
+                            ))}
+                        </div>
+                        </CardContent>
+                    </Card>
+                </FadeUpInView>
+
+                <FadeUpInView delay={0.08}>
+                    <Card className="rounded-[30px] border border-white/10 bg-white/[0.03] py-0 text-white">
+                        <CardContent className="px-6 py-7 md:px-8 md:py-8">
+                        <p className={`text-sm font-semibold uppercase tracking-[0.28em] ${mode.accentColor}`}>Package Includes</p>
+                        <h2 className="mt-3 text-2xl font-black tracking-tight text-white">받게 되는 구성과 제작 결과물</h2>
+
+                        <div className="mt-6 grid gap-6 lg:grid-cols-2">
+                            <FadeUpInView delay={0.04}>
+                                <div className="rounded-[24px] border border-white/8 bg-black/20 p-5">
+                                    <p className="text-sm font-semibold uppercase tracking-[0.22em] text-zinc-400">패키지 구성</p>
+                                    <div className="mt-4 space-y-3">
+                                        {mode.packageItems.map((item) => (
+                                            <div key={`${mode.id}-package-${item}`} className="flex items-start gap-3">
+                                                <Check className={`mt-1 size-4 ${mode.accentColor}`} />
+                                                <p className="text-sm leading-6 text-zinc-200">{item}</p>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </FadeUpInView>
+
+                            <FadeUpInView delay={0.1}>
+                                <div className="rounded-[24px] border border-white/8 bg-black/20 p-5">
+                                    <p className="text-sm font-semibold uppercase tracking-[0.22em] text-zinc-400">최종 전달물</p>
+                                    <div className="mt-4 space-y-3">
+                                        {mode.deliverables.map((item) => (
+                                            <div key={`${mode.id}-deliverable-${item}`} className="flex items-start gap-3">
+                                                <Check className={`mt-1 size-4 ${mode.accentColor}`} />
+                                                <p className="text-sm leading-6 text-zinc-200">{item}</p>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </FadeUpInView>
+                        </div>
+
+                        <FadeUpInView delay={0.16}>
+                            <div className="mt-6 rounded-[24px] border border-white/8 bg-black/20 p-5">
+                                <p className="text-sm leading-7 text-zinc-300">{mode.priceNote}</p>
+                            </div>
+                        </FadeUpInView>
+                        </CardContent>
+                    </Card>
+                </FadeUpInView>
+
+                <FadeUpInView delay={0.12}>
+                    <Card className="rounded-[30px] border border-white/10 bg-white/[0.03] py-0 text-white">
+                        <CardContent className="px-6 py-7 md:px-8 md:py-8">
+                        <p className={`text-sm font-semibold uppercase tracking-[0.28em] ${mode.accentColor}`}>Production Flow</p>
+                        <h2 className="mt-3 text-2xl font-black tracking-tight text-white">구매 전환이 끊기지 않도록 제작 흐름도 단순하게</h2>
+
+                        <div className="mt-6 grid gap-4 md:grid-cols-3">
+                            {mode.processSteps.map((step, index) => (
+                                <FadeUpInView key={`${mode.id}-step-${step.title}`} delay={index * 0.07}>
+                                    <div className="rounded-[24px] border border-white/8 bg-black/20 p-5">
+                                        <p className={`text-sm font-semibold ${mode.accentColor}`}>STEP {index + 1}</p>
+                                        <h3 className="mt-3 text-lg font-bold text-white">{step.title}</h3>
+                                        <p className="mt-3 text-sm leading-6 text-zinc-400">{step.description}</p>
+                                    </div>
+                                </FadeUpInView>
+                            ))}
+                        </div>
+                        </CardContent>
+                    </Card>
+                </FadeUpInView>
+
+                <FadeUpInView delay={0.16}>
+                    <Card className="rounded-[30px] border border-white/10 bg-white/[0.03] py-0 text-white">
+                        <CardContent className="px-6 py-7 md:px-8 md:py-8">
+                        <p className={`text-sm font-semibold uppercase tracking-[0.28em] ${mode.accentColor}`}>Trust & Guide</p>
+                        <h2 className="mt-3 text-2xl font-black tracking-tight text-white">주문 전에 꼭 확인하면 좋은 안내</h2>
+
+                        <div className="mt-6 space-y-4">
+                            {mode.trustPoints.map((point, index) => (
+                                <FadeUpInView key={`${mode.id}-trust-${point}`} delay={index * 0.06}>
+                                    <div className="flex items-start gap-3 rounded-[22px] border border-white/8 bg-black/20 px-4 py-4">
+                                        <ShieldCheck className={`mt-0.5 size-5 ${mode.accentColor}`} />
+                                        <p className="text-sm leading-6 text-zinc-300">{point}</p>
+                                    </div>
+                                </FadeUpInView>
+                            ))}
+                        </div>
+
+                        <div className="mt-6 grid gap-4 md:grid-cols-2">
+                            <FadeUpInView delay={0.1}>
+                                <div className="rounded-[24px] border border-white/8 bg-black/20 p-5">
+                                    <div className="flex items-center gap-3 text-zinc-200">
+                                        <Clock3 className={`size-4 ${mode.accentColor}`} />
+                                        <p className="text-sm font-semibold">제작 일정</p>
+                                    </div>
+                                    <p className="mt-3 text-sm leading-6 text-zinc-400">{mode.leadTime}</p>
+                                </div>
+                            </FadeUpInView>
+
+                            <FadeUpInView delay={0.16}>
+                                <div className="rounded-[24px] border border-white/8 bg-black/20 p-5">
+                                    <div className="flex items-center gap-3 text-zinc-200">
+                                        <Truck className={`size-4 ${mode.accentColor}`} />
+                                        <p className="text-sm font-semibold">수령 안내</p>
+                                    </div>
+                                    <p className="mt-3 text-sm leading-6 text-zinc-400">{mode.deliveryNote}</p>
+                                </div>
+                            </FadeUpInView>
+                        </div>
+                        </CardContent>
+                    </Card>
+                </FadeUpInView>
+
+                <FadeUpInView delay={0.2}>
+                    <Card className="overflow-hidden rounded-[30px] border border-white/10 py-0 text-white" style={getAccentGlowStyle(mode.accentRgb)}>
+                        <CardContent className="px-6 py-7 md:px-8 md:py-8">
+                        <p className={`text-sm font-semibold uppercase tracking-[0.28em] ${mode.accentColor}`}>Before You Decide</p>
+                        <h2 className="mt-3 text-2xl font-black tracking-tight text-white">조금 더 보고 결정하고 싶다면</h2>
+                        <p className="mt-4 max-w-2xl text-sm leading-7 text-zinc-300 md:text-base">
+                            실제 후기를 먼저 보고 감을 잡아도 좋고, 궁금한 점은 QnA에서 바로 확인해도 좋습니다. 중요한 건 망설임 없이 다음 행동으로 이어지게 만드는 것입니다.
+                        </p>
+
+                        <div className="mt-6 flex flex-wrap gap-3">
+                            <Button asChild size="lg" className="rounded-full bg-white px-6 text-black hover:bg-zinc-200">
+                                <Link href="/reviews">
+                                    실사용 후기 보기
+                                    <ArrowRight className="size-4" />
+                                </Link>
+                            </Button>
+                            <Button asChild size="lg" variant="outline" className="rounded-full border-white/15 bg-transparent px-6 text-white hover:bg-white/10">
+                                <Link href="/support/faq">
+                                    QnA 바로가기
+                                    <CircleHelp className="size-4" />
+                                </Link>
+                            </Button>
+                        </div>
+                        </CardContent>
+                    </Card>
+                </FadeUpInView>
             </div>
 
-            {/* Customization & Purchase Flow Area */}
-            <div className="lg:col-span-5 space-y-8">
-                <Card className="bg-card/40 backdrop-blur-md border-white/10">
-                    <CardHeader>
-                        <CardTitle className="text-2xl">맞춤형 패키지 커스텀</CardTitle>
-                        <CardDescription>공간에 딱 맞는 옵션을 선택해 주세요.</CardDescription>
-                    </CardHeader>
-                    <CardContent className="space-y-6">
+            <div className="space-y-6 lg:sticky lg:top-24 self-start">
+                <FadeUpInView amount={0.1}>
+                    <Card className="overflow-hidden rounded-[30px] border border-white/10 py-0 text-white" style={getAccentGlowStyle(mode.accentRgb)}>
+                        <CardContent className="px-6 py-7 md:px-7 md:py-8">
+                        <p className={`text-sm font-semibold uppercase tracking-[0.28em] ${mode.accentColor}`}>Purchase Plan</p>
+                        <h2 className="mt-3 text-2xl font-black tracking-tight text-white">이 모드로 바로 이어가기</h2>
+                        <p className="mt-3 text-sm leading-7 text-zinc-300">사이즈와 프레임 톤을 고르면 예상 금액을 바로 확인하고 구매 흐름으로 넘어갈 수 있습니다.</p>
 
-                        <Accordion type="single" collapsible defaultValue="item-1" className="w-full">
-                            {/* Step 1: Size */}
-                            <AccordionItem value="item-1" className="border-b-white/10">
-                                <AccordionTrigger className="text-lg font-semibold hover:no-underline">1. 보드 크기 선택</AccordionTrigger>
-                                <AccordionContent className="pt-4 pb-6 space-y-3">
-                                    {["A4 (Standard)", "A3 (Large)", "Custom (상담요청)"].map((size) => (
-                                        <div
-                                            key={size}
-                                            onClick={() => setSelectedSize(size)}
-                                            className={`p-4 rounded-lg border-2 cursor-pointer transition-all ${selectedSize === size ? 'border-primary bg-primary/10' : 'border-border/50 hover:border-gray-500'}`}
-                                        >
-                                            <div className="flex justify-between items-center">
-                                                <span className="font-medium">{size}</span>
-                                                {size === "A4 (Standard)" && <span className="text-sm text-muted-foreground">+ 0원</span>}
-                                                {size === "A3 (Large)" && <span className="text-sm text-muted-foreground">+ 45,000원</span>}
-                                            </div>
-                                        </div>
-                                    ))}
-                                </AccordionContent>
-                            </AccordionItem>
+                        <div className="mt-6 space-y-5">
+                            <div>
+                                <div className="mb-3 flex items-center justify-between gap-3">
+                                    <p className="text-sm font-semibold text-zinc-100">1. 사이즈 선택</p>
+                                    <p className="text-xs text-zinc-500">공간 크기 기준</p>
+                                </div>
+                                <div className="space-y-3">
+                                    {mode.sizeOptions.map((option) => {
+                                        const isSelected = selectedSize.label === option.label;
 
-                            {/* Step 2: Frame Color */}
-                            <AccordionItem value="item-2" className="border-b-white/10">
-                                <AccordionTrigger className="text-lg font-semibold hover:no-underline">2. 프레임 색상</AccordionTrigger>
-                                <AccordionContent className="pt-4 pb-6 flex gap-4">
-                                    {["Silver", "Matte Black", "Rose Gold"].map((color) => (
-                                        <button
-                                            key={color}
-                                            onClick={() => setSelectedFrame(color)}
-                                            className={`flex-1 py-3 px-2 rounded-lg border-2 text-sm font-medium transition-all ${selectedFrame === color ? 'border-primary bg-primary/10 text-primary' : 'border-border/50 text-muted-foreground hover:border-gray-500'}`}
-                                        >
-                                            {color}
-                                        </button>
-                                    ))}
-                                </AccordionContent>
-                            </AccordionItem>
+                                        return (
+                                            <button
+                                                key={`${mode.id}-size-${option.label}`}
+                                                type="button"
+                                                onClick={() => setSelectedSizeLabel(option.label)}
+                                                className="w-full rounded-[22px] border px-4 py-4 text-left transition-colors border-white/10 bg-white/[0.03] hover:border-white/20"
+                                                style={isSelected ? getAccentBadgeStyle(mode.accentRgb) : undefined}
+                                            >
+                                                <div className="flex items-start justify-between gap-3">
+                                                    <div>
+                                                        <p className="font-semibold text-white">{option.label}</p>
+                                                        <p className="mt-1 text-sm leading-6 text-zinc-400">{option.note}</p>
+                                                    </div>
+                                                    <div className="text-right">
+                                                        {option.recommended ? (
+                                                            <span className={`mb-2 inline-flex rounded-full px-2 py-1 text-[11px] font-semibold ${mode.accentColor}`} style={getAccentBadgeStyle(mode.accentRgb)}>
+                                                                추천
+                                                            </span>
+                                                        ) : null}
+                                                        <p className="text-sm font-semibold text-white">{option.priceDelta === 0 ? "기본가" : `+ ${formatPrice(option.priceDelta)}`}</p>
+                                                    </div>
+                                                </div>
+                                            </button>
+                                        );
+                                    })}
+                                </div>
+                            </div>
 
-                            {/* Step 3: Media Upload */}
-                            <AccordionItem value="item-3" className="border-b-transparent">
-                                <AccordionTrigger className="text-lg font-semibold hover:no-underline">3. AI 미디어(사진/영상) 업로드</AccordionTrigger>
-                                <AccordionContent className="pt-4 pb-2">
-                                    <div className="border-2 border-dashed border-border/50 rounded-xl p-8 text-center hover:bg-white/5 transition-colors cursor-pointer group">
-                                        <UploadCloud className="w-10 h-10 mx-auto mb-4 text-muted-foreground group-hover:text-primary transition-colors" />
-                                        <p className="font-medium mb-1">클릭하여 파일 선택 또는 드래그 앤 드롭</p>
-                                        <p className="text-xs text-muted-foreground">고해상도 사진(JPG, PNG) 및 1분 미만 영상(MP4) 권장</p>
-                                    </div>
-                                    <div className="mt-4 flex items-start gap-2 text-xs text-muted-foreground bg-black/20 p-3 rounded-lg">
-                                        <Info className="w-4 h-4 shrink-0 mt-0.5" />
-                                        <p>업로드된 미디어는 Cloudflare R2 스토리지에 안전하게 암호화되어 저장되며 주문 제작 목적 외에는 사용되지 않습니다.</p>
-                                    </div>
-                                </AccordionContent>
-                            </AccordionItem>
-                        </Accordion>
+                            <div>
+                                <div className="mb-3 flex items-center justify-between gap-3">
+                                    <p className="text-sm font-semibold text-zinc-100">2. 프레임 톤 선택</p>
+                                    <p className="text-xs text-zinc-500">무드 맞춤</p>
+                                </div>
+                                <div className="space-y-3">
+                                    {mode.frameOptions.map((option) => {
+                                        const isSelected = selectedFrame.label === option.label;
 
-                    </CardContent>
-                </Card>
+                                        return (
+                                            <button
+                                                key={`${mode.id}-frame-${option.label}`}
+                                                type="button"
+                                                onClick={() => setSelectedFrameLabel(option.label)}
+                                                className="flex w-full items-center gap-3 rounded-[22px] border px-4 py-4 text-left transition-colors border-white/10 bg-white/[0.03] hover:border-white/20"
+                                                style={isSelected ? getAccentBadgeStyle(mode.accentRgb) : undefined}
+                                            >
+                                                <span className={`h-4 w-4 rounded-full border border-white/20 ${option.swatchClass}`} />
+                                                <div className="min-w-0 flex-1">
+                                                    <p className="font-semibold text-white">{option.label}</p>
+                                                    <p className="mt-1 text-sm leading-6 text-zinc-400">{option.note}</p>
+                                                </div>
+                                                <p className="text-sm font-semibold text-white">{option.priceDelta === 0 ? "기본" : `+ ${formatPrice(option.priceDelta)}`}</p>
+                                            </button>
+                                        );
+                                    })}
+                                </div>
+                            </div>
+                        </div>
 
-                {/* Sticky Purchase Summary Bar (Desktop: inline, Mobile: fixed bottom) */}
-                <div className="sticky bottom-4 z-40 bg-card border border-white/10 rounded-2xl p-6 shadow-2xl flex flex-col sm:flex-row items-center justify-between gap-6 backdrop-blur-xl">
-                    <div>
-                        <p className="text-sm text-muted-foreground mb-1">총 결제 금액</p>
-                        <p className="text-3xl font-black text-foreground">
-                            {formatPrice(selectedSize === "A3 (Large)" ? mode.price + 45000 : mode.price)}
-                        </p>
-                    </div>
-                    {/* We will tie this to Toss Payments later */}
-                    <Button size="lg" className="w-full sm:w-auto h-14 px-10 text-lg rounded-xl font-bold">
-                        장바구니 담기 / 결제하기
-                    </Button>
-                </div>
+                        <div className="mt-6 rounded-[24px] border border-white/10 bg-black/30 p-5">
+                            <div className="flex items-center justify-between text-sm text-zinc-400">
+                                <span>기본 패키지</span>
+                                <span>{formatPrice(mode.price)}</span>
+                            </div>
+                            <div className="mt-3 flex items-center justify-between text-sm text-zinc-400">
+                                <span>선택 옵션</span>
+                                <span>{optionDelta === 0 ? "변동 없음" : `+ ${formatPrice(optionDelta)}`}</span>
+                            </div>
+                            <div className="mt-4 border-t border-white/10 pt-4">
+                                <p className="text-sm text-zinc-400">예상 결제 금액</p>
+                                <p className="mt-2 text-3xl font-black tracking-tight text-white">{formatPrice(totalPrice)}</p>
+                                <p className="mt-3 text-sm leading-6 text-zinc-400">{selectedSize.label} · {selectedFrame.label} 기준 예상가입니다.</p>
+                            </div>
+                        </div>
 
+                        <div className="mt-6 flex flex-col gap-3">
+                            <Button asChild size="lg" className="h-12 rounded-full bg-white text-black hover:bg-zinc-200">
+                                <Link href="/cart">
+                                    이 구성으로 구매 진행하기
+                                    <ShoppingCart className="size-4" />
+                                </Link>
+                            </Button>
+                            <Button asChild size="lg" variant="outline" className="h-12 rounded-full border-white/15 bg-transparent text-white hover:bg-white/10">
+                                <Link href="/support/faq">
+                                    QnA 먼저 확인하기
+                                    <CircleHelp className="size-4" />
+                                </Link>
+                            </Button>
+                        </div>
+
+                        <div className="mt-5 space-y-3 text-sm text-zinc-400">
+                            <div className="flex items-start gap-3">
+                                <Clock3 className={`mt-0.5 size-4 ${mode.accentColor}`} />
+                                <span className="leading-6">{mode.leadTime}</span>
+                            </div>
+                            <div className="flex items-start gap-3">
+                                <Truck className={`mt-0.5 size-4 ${mode.accentColor}`} />
+                                <span className="leading-6">{mode.deliveryNote}</span>
+                            </div>
+                        </div>
+                        </CardContent>
+                    </Card>
+                </FadeUpInView>
+
+                <FadeUpInView delay={0.08} amount={0.1}>
+                    <Card className="rounded-[30px] border border-white/10 bg-white/[0.03] py-0 text-white">
+                        <CardContent className="px-6 py-7 md:px-7 md:py-8">
+                        <p className={`text-sm font-semibold uppercase tracking-[0.28em] ${mode.accentColor}`}>Included Deliverables</p>
+                        <h2 className="mt-3 text-xl font-black tracking-tight text-white">최종 수령 체크리스트</h2>
+
+                        <div className="mt-5 space-y-3">
+                            {mode.deliverables.map((item) => (
+                                <div key={`${mode.id}-sidebar-${item}`} className="flex items-start gap-3 rounded-[20px] border border-white/8 bg-black/20 px-4 py-4">
+                                    <Check className={`mt-1 size-4 ${mode.accentColor}`} />
+                                    <p className="text-sm leading-6 text-zinc-300">{item}</p>
+                                </div>
+                            ))}
+                        </div>
+
+                        <div className="mt-6 rounded-[24px] border border-white/8 bg-black/20 p-5">
+                            <p className="text-sm font-semibold text-zinc-100">리얼스토리도 함께 보세요</p>
+                            <p className="mt-3 text-sm leading-6 text-zinc-400">비슷한 취향의 고객이 어떤 모드를 골랐는지 먼저 보면 선택이 훨씬 빨라집니다.</p>
+                            <Button asChild variant="outline" className="mt-4 h-11 w-full rounded-full border-white/15 bg-transparent text-white hover:bg-white/10">
+                                <Link href="/reviews">
+                                    실사용 후기 보기
+                                    <ArrowRight className="size-4" />
+                                </Link>
+                            </Button>
+                        </div>
+                        </CardContent>
+                    </Card>
+                </FadeUpInView>
             </div>
         </div>
     );

@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import { buildAdminLoginPath } from "@/lib/admin-access";
 import { getAdminContextFromHeaders } from "@/lib/admin-context";
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
     const redirectTo = `${request.nextUrl.pathname}${request.nextUrl.search}`;
     const { session, admin } = await getAdminContextFromHeaders(request.headers);
 

@@ -51,9 +51,51 @@ const MODES = [
     }
 ];
 
-export function ModeCuration() {
+type ModeCurationProps = {
+    eyebrow?: string;
+    variant?: "home" | "page";
+};
+
+function DesktopInteractionHint({ className }: { className: string }) {
+    return (
+        <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className={className}
+        >
+            <span className="w-8 h-[1px] bg-zinc-800"></span>
+            <motion.div
+                animate={{
+                    opacity: [1, 0, 1, 0, 1, 1, 1, 1, 1],
+                }}
+                transition={{
+                    duration: 4,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    times: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.8, 1]
+                }}
+                className="flex items-center gap-5 text-zinc-400 text-base font-bold tracking-[0.25em] uppercase"
+            >
+                <span className="relative flex h-3 w-3">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00dfb6] opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-3 w-3 bg-[#00dfb6]"></span>
+                </span>
+                마우스를 올려서 각 모드를 경험해 보세요
+                <span className="relative flex h-3 w-3">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00dfb6] opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-3 w-3 bg-[#00dfb6]"></span>
+                </span>
+            </motion.div>
+            <span className="w-8 h-[1px] bg-zinc-800"></span>
+        </motion.div>
+    );
+}
+
+export function ModeCuration({ eyebrow, variant = "home" }: ModeCurationProps) {
     const [activeMobileIndex, setActiveMobileIndex] = useState(0);
     const scrollRef = useRef<HTMLDivElement>(null);
+    const isPageVariant = variant === "page";
 
     const handleScroll = () => {
         if (scrollRef.current) {
@@ -67,57 +109,45 @@ export function ModeCuration() {
     };
 
     return (
-        <section id="mode-curation" className="min-h-[calc(100vh-64px)] py-12 md:py-20 flex flex-col justify-center bg-[#050505] relative overflow-hidden">
-            <div className="container mx-auto px-4 z-10 relative mb-8 md:mb-16">
-                <div className="text-center">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.8 }}
-                    >
-                        <h2 className="text-3xl md:text-5xl font-black mb-4 tracking-tight text-white">
-                            발견하세요, 당신의 <span className="text-zinc-500 italic font-medium">MODE</span>
-                        </h2>
-                        <p className="text-zinc-400 text-lg md:text-xl font-light">
-                            바꿔모드가 제안하는 4가지 감성 스위치
-                        </p>
-                    </motion.div>
-                </div>
+        <section
+            id="mode-curation"
+            className={isPageVariant
+                ? "relative overflow-hidden bg-[#050505] py-16 md:py-20"
+                : "relative min-h-[calc(100vh-64px)] overflow-hidden bg-[#050505] py-12 md:py-20 flex flex-col justify-center"
+            }
+        >
+            {!isPageVariant && (
+                <div className="container mx-auto px-4 z-10 relative mb-8 md:mb-16">
+                    <div className="text-center">
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.8 }}
+                        >
+                            {eyebrow && (
+                                <p className="mb-4 text-sm font-semibold uppercase tracking-[0.32em] text-[#00dfb6]">
+                                    {eyebrow}
+                                </p>
+                            )}
+                            <h2 className="text-3xl md:text-5xl font-black mb-4 tracking-tight text-white">
+                                발견하세요, 당신의 <span className="text-zinc-500 italic font-medium">MODE</span>
+                            </h2>
+                            <p className="text-zinc-400 text-lg md:text-xl font-light">
+                                바꿔모드가 제안하는 4가지 감성 스위치
+                            </p>
+                        </motion.div>
+                    </div>
 
-                {/* Desktop Interaction Hint - Impactful & High-Tech Pulse */}
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    className="hidden md:flex justify-center items-center gap-6 mt-8 mb-4"
-                >
-                    <span className="w-8 h-[1px] bg-zinc-800"></span>
-                    <motion.div
-                        animate={{
-                            opacity: [1, 0, 1, 0, 1, 1, 1, 1, 1], // Blink blink -> Stay -> Blink blink
-                        }}
-                        transition={{
-                            duration: 4,
-                            repeat: Infinity,
-                            ease: "easeInOut",
-                            times: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.8, 1]
-                        }}
-                        className="flex items-center gap-5 text-zinc-400 text-base font-bold tracking-[0.25em] uppercase"
-                    >
-                        <span className="relative flex h-3 w-3">
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00dfb6] opacity-75"></span>
-                            <span className="relative inline-flex rounded-full h-3 w-3 bg-[#00dfb6]"></span>
-                        </span>
-                        마우스를 올려서 각 모드를 경험해 보세요
-                        <span className="relative flex h-3 w-3">
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00dfb6] opacity-75"></span>
-                            <span className="relative inline-flex rounded-full h-3 w-3 bg-[#00dfb6]"></span>
-                        </span>
-                    </motion.div>
-                    <span className="w-8 h-[1px] bg-zinc-800"></span>
-                </motion.div>
-            </div>
+                    <DesktopInteractionHint className="hidden md:flex justify-center items-center gap-6 mt-8 mb-4" />
+                </div>
+            )}
+
+            {isPageVariant && (
+                <div className="container mx-auto max-w-6xl px-4">
+                    <DesktopInteractionHint className="hidden md:flex justify-center items-center gap-6 mb-10 md:mb-12" />
+                </div>
+            )}
 
             {/* Desktop View (Accordion Hover Interaction) */}
             <div className="hidden md:flex flex-row w-full max-w-[1600px] mx-auto h-[600px] gap-4 px-8">
@@ -376,7 +406,7 @@ function MobileCard({ mode }: { mode: typeof MODES[0] }) {
                 // Invisible overlay to catch taps when playing to pause
                 <button
                     onClick={togglePlay}
-                    className="absolute inset-0 w-full h-full z-20"
+                    className="absolute inset-0 z-20 h-full w-full"
                     aria-label="Pause Video"
                 >
                     <div className="absolute bottom-6 right-6 w-12 h-12 rounded-full bg-black/40 backdrop-blur-md flex items-center justify-center border border-white/20 text-white">

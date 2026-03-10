@@ -34,7 +34,8 @@ export function Footer() {
 
                     <div className="col-span-1 md:col-span-1">
                         <h3 className="text-white font-medium mb-4">Help</h3>
-                        <ul className="space-y-3 text-sm text-zinc-400">
+                        <ul className="space-y-2 text-sm text-zinc-400">
+                            <li><Link href="/support" className="hover:text-white transition-colors">고객지원</Link></li>
                             <li><Link href="/support/faq" className="hover:text-white transition-colors">자주 묻는 질문</Link></li>
                             <li><Link href="/support/notice" className="hover:text-white transition-colors">공지사항</Link></li>
                             <li><Link href="/support/after-service" className="hover:text-white transition-colors">A/S 안내</Link></li>

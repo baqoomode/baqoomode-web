@@ -14,7 +14,7 @@ export default function Home() {
       <BrandIntro />
 
       {/* 3. B2C Core: 4 Curation Modes */}
-      <ModeCuration />
+      <ModeCuration eyebrow="Lifestyle Modes" />
 
       {/* 4. Verification & Trust: Real Stories */}
       <ReviewsPreview />

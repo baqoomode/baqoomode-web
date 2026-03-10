@@ -1,153 +1,138 @@
 "use client";
 
-import { useState } from "react";
-import { motion } from "framer-motion";
 import Link from "next/link";
-import { ArrowRight, Star } from "lucide-react";
+import { motion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
+
+import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { FEATURED_STORIES } from "@/lib/real-stories";
 
-interface Review {
-    id: number;
-    name: string;
-    mode: string;
-    rating: number;
-    content: string;
-    imageColor: string;
-}
+const containerVariants = {
+    hidden: {},
+    visible: {
+        transition: {
+            staggerChildren: 0.12,
+            delayChildren: 0.12,
+        },
+    },
+};
 
-const PREVIEW_REVIEWS: Review[] = [
-    {
-        id: 1,
-        name: "김** 님",
-        mode: "Pet Mode",
-        rating: 5,
-        content: "우리 강아지가 무지개 다리를 건너고 너무 슬퉜는데, 아침마다 켜지는 바꿔모드 앨범 덕분에 매일 위로받아요...",
-        imageColor: "bg-amber-800",
+const itemVariants = {
+    hidden: { opacity: 0, y: 28 },
+    visible: {
+        opacity: 1,
+        y: 0,
+        transition: {
+            duration: 0.7,
+        },
     },
-    {
-        id: 2,
-        name: "박** 대표님",
-        mode: "Biz/Office Mode",
-        rating: 5,
-        content: "사무실 인포데스크 뒤에 설치했습니다. 방문하시는 손님들마다 특허증 액자 어디서 했냐고 꼭 물어보시네요!",
-        imageColor: "bg-blue-800",
-    },
-    {
-        id: 3,
-        name: "이** 님",
-        mode: "Memory Mode",
-        rating: 5,
-        content: "결혼 1주년 선물로 준비했는데, 불 꺼진 방에서 빛나는 웨딩 사진을 보니 남편이 눈물을 글썽이더라고요...",
-        imageColor: "bg-rose-800",
-    },
-    {
-        id: 4,
-        name: "최** 님",
-        mode: "Fandom Mode",
-        rating: 5,
-        content: "최애 아이돌 굿즈 중 단연 최고입니다. 방 불 끄고 켜놓으면 콘서트장에 온 것 같은 벅찬 감동이 밀려와요!",
-        imageColor: "bg-purple-800",
-    },
-    {
-        id: 5,
-        name: "정** 고객님",
-        mode: "Memory Mode",
-        rating: 5,
-        content: "부모님 칠순 잔치 때 가족 사진을 담아 선물해 드렸어요. 거실 분위기가 확 살아났다고 너무 좋아하십니다.",
-        imageColor: "bg-zinc-800",
-    },
-    {
-        id: 6,
-        name: "송** 사장님",
-        mode: "Biz/Office Mode",
-        rating: 5,
-        content: "카페 메뉴판으로 활용 중입니다. 조명이 은은해서 매장 전체 인테리어의 품격을 한 단계 높여주는 느낌이에요.",
-        imageColor: "bg-teal-800",
-    }
-];
+};
 
 export function ReviewsPreview() {
-    const [isPaused, setIsPaused] = useState(false);
-
     return (
-        <section className="min-h-[calc(100vh-64px)] py-20 flex flex-col justify-center bg-background relative overflow-hidden">
-            <div className="container mx-auto px-4 max-w-6xl relative z-10">
-                <div className="text-center mb-16 md:mb-24">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: "-100px" }}
-                        transition={{ duration: 0.8 }}
-                    >
-                        <h2 className="text-4xl md:text-5xl lg:text-6xl font-black mb-6 tracking-tight text-white leading-tight">
-                            Real Stories
-                        </h2>
-                        <p className="text-lg text-zinc-400 font-light">
-                            수많은 공간이 이미 완벽하게 스위칭 되었습니다.
-                        </p>
-                    </motion.div>
-                </div>
-            </div>
+        <section className="relative overflow-hidden bg-[#050505] py-20 md:py-28">
+            <motion.div
+                aria-hidden="true"
+                className="pointer-events-none absolute left-1/2 top-16 h-56 w-56 -translate-x-[140%] rounded-full bg-[#00dfb6]/10 blur-3xl"
+                animate={{ x: [0, 18, 0], y: [0, -14, 0] }}
+                transition={{ duration: 9, repeat: Infinity }}
+            />
+            <motion.div
+                aria-hidden="true"
+                className="pointer-events-none absolute right-0 top-32 h-72 w-72 -translate-x-8 rounded-full bg-white/[0.05] blur-3xl"
+                animate={{ x: [0, -16, 0], y: [0, 12, 0] }}
+                transition={{ duration: 11, repeat: Infinity }}
+            />
 
-            {/* Marquee Container */}
-            <div className="relative w-full overflow-hidden mb-20 flex">
-                {/* Left/Right fading edges - hidden on mobile to avoid clutter */}
-                <div className="hidden md:block absolute top-0 left-0 w-32 h-full bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
-                <div className="hidden md:block absolute top-0 right-0 w-32 h-full bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
-
-                {/* Moving track - interactive pause on click/touch for mobile */}
-                <div
-                    className="flex w-max animate-marquee hover:[animation-play-state:paused] gap-6 px-3"
-                    style={{
-                        animationPlayState: isPaused ? 'paused' : 'running',
-                        cursor: 'pointer'
-                    }}
-                    onClick={() => setIsPaused(!isPaused)}
+            <div className="relative container mx-auto max-w-6xl px-4">
+                <motion.div
+                    initial={{ opacity: 0, y: 24 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.35 }}
+                    transition={{ duration: 0.8 }}
+                    className="mx-auto mb-12 max-w-3xl text-center md:mb-16"
                 >
-                    {/* Render the list twice to create an infinite loop */}
-                    {[...PREVIEW_REVIEWS, ...PREVIEW_REVIEWS].map((review, index) => (
-                        <div key={`${review.id}-${index}`} className="w-[300px] md:w-[400px] flex-shrink-0">
-                            <Card className="bg-[#121319]/80 border-white/5 backdrop-blur-md overflow-hidden hover:bg-[#16171e] transition-colors h-full flex flex-col rounded-2xl cursor-pointer">
-                                {/* Photo placeholder */}
-                                <div className={`w-full h-40 ${review.imageColor} flex items-center justify-center shrink-0 opacity-80 mix-blend-luminosity hover:mix-blend-normal transition-all duration-500`}>
-                                    <span className="text-white/30 text-[10px] font-medium tracking-widest uppercase">Customer Photo</span>
-                                </div>
-                                <CardContent className="p-6 md:p-8 flex-1 flex flex-col justify-between">
-                                    <div>
-                                        <div className="flex justify-between items-start mb-4 md:mb-6">
-                                            <div>
-                                                <h3 className="font-bold text-white mb-1.5 text-sm md:text-base">{review.name}</h3>
-                                                <span className="text-[9px] md:text-[10px] text-[#00dfb6] border border-[#00dfb6]/30 bg-[#00dfb6]/5 px-2.5 py-1 rounded-full uppercase tracking-wider">{review.mode}</span>
-                                            </div>
-                                            <div className="flex gap-1">
-                                                {[...Array(review.rating)].map((_, i) => (
-                                                    <Star key={i} className="w-3 h-3 md:w-3.5 md:h-3.5 fill-amber-400 text-amber-400" />
-                                                ))}
-                                            </div>
-                                        </div>
-                                        <p className="text-zinc-400 text-xs md:text-sm leading-relaxed font-light">
-                                            &ldquo;{review.content}&rdquo;
-                                        </p>
+                    <p className="mb-4 text-sm font-semibold uppercase tracking-[0.3em] text-[#00dfb6]">
+                        Real Stories
+                    </p>
+                    <h2 className="mb-5 text-4xl font-black tracking-tight text-white md:text-5xl lg:text-6xl">
+                        켜지는 순간,
+                        <br className="hidden md:block" /> 공간이 달라집니다.
+                    </h2>
+                    <p className="text-base leading-7 text-zinc-400 md:text-lg">
+                        반려의 기억부터 오피스·매장, 팬덤, 선물까지.
+                        바꿔모드의 실제 장면을 만나보세요.
+                    </p>
+                </motion.div>
+
+                <motion.div
+                    variants={containerVariants}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.18 }}
+                    className="grid gap-5 md:grid-cols-2 xl:grid-cols-4"
+                >
+                    {FEATURED_STORIES.map((story) => (
+                        <motion.div
+                            key={story.id}
+                            variants={itemVariants}
+                            whileHover={{ y: -6 }}
+                            transition={{ duration: 0.3 }}
+                            className="h-full"
+                        >
+                            <Card
+                                className={`h-full gap-0 overflow-hidden rounded-[28px] border ${story.panelClass} transition-colors duration-300 hover:border-white/20`}
+                            >
+                                <div className="border-b border-white/6 px-6 py-5">
+                                    <div className="mb-3 flex items-center justify-between gap-3">
+                                        <span className="text-[11px] font-semibold uppercase tracking-[0.24em] text-white/50">
+                                            {story.categoryLabel}
+                                        </span>
+                                        <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] text-white/80">
+                                            {story.modeLabel}
+                                        </span>
                                     </div>
+                                    <p className="text-sm leading-6 text-zinc-300">{story.eyebrow}</p>
+                                </div>
+
+                                <CardContent className="flex h-full flex-col px-6 py-6">
+                                    <h3 className="mb-4 text-xl font-bold leading-8 text-white">{story.title}</h3>
+                                    <p className="mb-5 flex-1 text-sm leading-7 text-zinc-400">{story.summary}</p>
+                                    <div className="mb-5 flex flex-wrap gap-2">
+                                        {story.keywords.map((keyword) => (
+                                            <span
+                                                key={keyword}
+                                                className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-zinc-200"
+                                            >
+                                                {keyword}
+                                            </span>
+                                        ))}
+                                    </div>
+                                    <p className="text-sm leading-7 text-zinc-200">{story.quote}</p>
                                 </CardContent>
                             </Card>
-                        </div>
+                        </motion.div>
                     ))}
-                </div>
-            </div>
+                </motion.div>
 
-            <div className="container mx-auto px-4 max-w-6xl relative z-10">
                 <motion.div
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 1, delay: 0.2 }}
-                    className="text-center"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.5 }}
+                    transition={{ duration: 0.7, delay: 0.15 }}
+                    className="mt-12 text-center"
                 >
-                    <Link href="/reviews" className="group inline-flex items-center justify-center px-8 py-3.5 rounded-full border border-white/10 text-white bg-transparent hover:bg-white/5 transition-colors duration-300 font-medium text-sm tracking-wide">
-                        모든 생생한 후기 보기
-                        <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                    </Link>
+                    <Button
+                        asChild
+                        size="lg"
+                        className="rounded-full border border-[#00dfb6]/20 bg-[#00dfb6]/10 px-7 text-[#d8fff7] hover:bg-[#00dfb6]/16 hover:text-white"
+                    >
+                        <Link href="/reviews">
+                            리얼스토리 전체 보기
+                            <ArrowRight className="size-4" />
+                        </Link>
+                    </Button>
                 </motion.div>
             </div>
         </section>
