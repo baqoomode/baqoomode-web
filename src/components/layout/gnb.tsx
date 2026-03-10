@@ -3,22 +3,13 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ShieldCheck, User, ShoppingCart, Menu, X, ArrowRight } from "lucide-react";
+import { User, ShoppingCart, Menu, X, ArrowRight } from "lucide-react";
 import { useSession } from "@/lib/auth-client";
 import { motion, AnimatePresence } from "framer-motion";
-
-type AdminStatus = {
-    userId: string | null;
-    isAdmin: boolean;
-};
 
 export function GNB() {
     const { data: session } = useSession();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [adminStatus, setAdminStatus] = useState<AdminStatus>({
-        userId: null,
-        isAdmin: false,
-    });
 
     // Lock body scroll when menu is open
     useEffect(() => {
@@ -32,45 +23,6 @@ export function GNB() {
         };
     }, [isMenuOpen]);
 
-    useEffect(() => {
-        if (!session?.user?.id) {
-            return;
-        }
-
-        const controller = new AbortController();
-        const userId = session.user.id;
-
-        fetch("/api/admin/me", {
-            signal: controller.signal,
-            cache: "no-store",
-        })
-            .then(async (response) => {
-                if (!response.ok) {
-                    throw new Error("관리자 상태를 불러오지 못했습니다.");
-                }
-
-                return response.json();
-            })
-            .then((data) => {
-                setAdminStatus({
-                    userId,
-                    isAdmin: Boolean(data?.isAdmin),
-                });
-            })
-            .catch((error: unknown) => {
-                if (controller.signal.aborted) {
-                    return;
-                }
-
-                console.error(error);
-                setAdminStatus({ userId, isAdmin: false });
-            });
-
-        return () => {
-            controller.abort();
-        };
-    }, [session?.user?.id]);
-
     const NAV_ITEMS = [
         { label: "브랜드 스토리", href: "/brand" },
         { label: "라이프 모드", href: "/modes" },
@@ -78,7 +30,6 @@ export function GNB() {
         { label: "리얼스토리", href: "/reviews" },
         { label: "제휴문의", href: "/b2b" },
     ];
-    const canAccessAdmin = Boolean(session?.user?.id) && adminStatus.userId === session?.user?.id && adminStatus.isAdmin;
 
     const mobileQuickLinks = [
         {
@@ -86,15 +37,6 @@ export function GNB() {
             label: session ? "마이페이지" : "로그인",
             icon: User,
         },
-        ...(canAccessAdmin
-            ? [
-                {
-                    href: "/admin",
-                    label: "관리자",
-                    icon: ShieldCheck,
-                },
-            ]
-            : []),
         {
             href: "/cart",
             label: "장바구니",
@@ -145,19 +87,6 @@ export function GNB() {
                                 {session ? "마이페이지" : "로그인 / 회원가입"}
                             </span>
                         </Link>
-
-                        {canAccessAdmin ? (
-                            <Link
-                                href="/admin"
-                                className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
-                            >
-                                <ShieldCheck className="w-4 h-4 md:w-5 md:h-5" />
-                                <span className="hidden sm:inline text-xs md:text-sm font-medium">
-                                    관리자
-                                </span>
-                            </Link>
-                        ) : null}
-
                         <Link
                             href="/cart"
                             className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
@@ -216,7 +145,7 @@ export function GNB() {
 
                                 <div className="h-px bg-border/40 w-full" />
 
-                                <div className={`grid gap-4 ${mobileQuickLinks.length === 3 ? "grid-cols-3" : "grid-cols-2"}`}>
+                                <div className="grid grid-cols-2 gap-4">
                                     {mobileQuickLinks.map((item) => {
                                         const Icon = item.icon;
 

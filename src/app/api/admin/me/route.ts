@@ -1,16 +1,13 @@
 import { NextResponse } from "next/server";
-import { getAdminContextFromHeaders } from "@/lib/admin-context";
 
 export const runtime = "edge";
 
-export async function GET(request: Request) {
-  const { session, admin } = await getAdminContextFromHeaders(request.headers);
-
+export async function GET() {
   return NextResponse.json(
     {
-      isAuthenticated: Boolean(session),
-      isAdmin: Boolean(admin),
-      role: admin?.role ?? null,
+      isAuthenticated: false,
+      isAdmin: false,
+      role: null,
     },
     {
       headers: {

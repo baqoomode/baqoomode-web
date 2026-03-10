@@ -2,8 +2,6 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ProductDetailClient } from "@/app/products/[id]/product-detail-client";
 
-export const runtime = "edge";
-
 const PRODUCTS_DATA = {
     "light-board": {
         id: "light-board",
@@ -111,6 +109,12 @@ interface PageProps {
     params: Promise<{
         id: string;
     }>;
+}
+
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+    return Object.keys(PRODUCTS_DATA).map((id) => ({ id }));
 }
 
 export default async function ProductPage({ params }: PageProps) {

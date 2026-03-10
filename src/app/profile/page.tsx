@@ -13,7 +13,7 @@ import { AdminPageHeader, MetricCard, SectionCard, StatusBadge } from "@/compone
 import { SignOutButton } from "@/components/auth/sign-out-button";
 import { db } from "@/db";
 import { inquiry, session as sessionTable } from "@/db/schema";
-import { getCurrentAdminContext } from "@/lib/admin-auth";
+import { getCurrentSession } from "@/lib/session";
 
 export const runtime = "edge";
 
@@ -110,7 +110,7 @@ function inquiryTone(status: string | null) {
 }
 
 export default async function ProfilePage() {
-  const { session } = await getCurrentAdminContext();
+  const session = await getCurrentSession();
 
   if (!session) {
     redirect("/auth/login?redirectTo=/profile");
