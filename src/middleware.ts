@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import { buildAdminLoginPath } from "@/lib/admin-access";
 import { getAdminContextFromHeaders } from "@/lib/admin-context";
 
-export const runtime = "edge";
+export const runtime = "experimental-edge";
 
 export async function middleware(request: NextRequest) {
     const redirectTo = `${request.nextUrl.pathname}${request.nextUrl.search}`;
