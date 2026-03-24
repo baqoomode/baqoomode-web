@@ -5,7 +5,7 @@ import { getAdminContextFromHeaders } from "@/lib/admin-context";
 
 export const runtime = "edge";
 
-export async function proxy(request: NextRequest) {
+export async function middleware(request: NextRequest) {
     const redirectTo = `${request.nextUrl.pathname}${request.nextUrl.search}`;
     const { session, admin } = await getAdminContextFromHeaders(request.headers);
 
