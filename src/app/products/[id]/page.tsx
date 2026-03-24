@@ -134,11 +134,7 @@ interface PageProps {
     }>;
 }
 
-export const dynamicParams = false;
-
-export function generateStaticParams() {
-    return Object.keys(PRODUCTS_DATA).map((id) => ({ id }));
-}
+export const runtime = "edge";
 
 export default async function ProductPage({ params }: PageProps) {
     const resolvedParams = await params;
