@@ -254,7 +254,11 @@ interface PageProps {
     params: Promise<{ id: string }>;
 }
 
-export const runtime = "edge";
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+    return Object.keys(MODES_DATA).map((id) => ({ id }));
+}
 
 export default async function ModePage({ params }: PageProps) {
     const resolvedParams = await params;
